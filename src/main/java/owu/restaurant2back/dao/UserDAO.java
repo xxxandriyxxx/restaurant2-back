@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import owu.restaurant2back.models.User;
 
-
 //import org.springframework.data.jpa.repository.Query;
 //import org.springframework.data.repository.query.Param;
 
@@ -15,4 +14,8 @@ public interface UserDAO extends JpaRepository<User,Integer> {
 //    User findByUsername (@Param("username") String name);
 
     User findByUsername(String username);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
+
+
 }

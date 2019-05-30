@@ -2,16 +2,16 @@ package owu.restaurant2back.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import owu.restaurant2back.models.ResponseMessage;
+import owu.restaurant2back.models.Restaurant;
 import owu.restaurant2back.models.User;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
+public interface RestaurantService extends UserDetailsService {
 
-    //    void save(User user);
-    ResponseMessage save(User user);
+    ResponseMessage save(Restaurant restaurant);
 
-    List<User> findAll();
+    List<Restaurant> findAll();
 
-    User findOneById(Integer id);
+    Restaurant findOneById(Integer id);
 }

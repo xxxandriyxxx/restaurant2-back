@@ -2,6 +2,8 @@ package owu.restaurant2back.models;
 
 //import lombok.Getter;
 //import lombok.Setter;
+//import lombok.AccessLevel;
+//import lombok.experimental.FieldDefaults;
 
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,19 +15,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
+@Entity(name = "Users")
 //@Getter
 //@Setter
+//@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
+//@Inheritance
+@DiscriminatorColumn(name = "type")
+
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique = true)
+    // if you want to create a restaurant and a client with the same username
+    // don't use this annotation and use restaurantDAO and clientDAO instead userDAO in their services impl
     private String username;
     private String password;
+    @Column(unique = true)
+    // if you want to create a restaurant and a client with the same email
+    // don't use this annotation and use restaurantDAO and clientDAO instead userDAO in their services impl
     private String email;
+    private String avatar;
     @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_USER;
     private boolean isAccountNonExpired = true;
@@ -66,6 +78,14 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Role getRole() {
@@ -114,7 +134,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role.name()));
 //        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
