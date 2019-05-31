@@ -60,11 +60,7 @@ public class MainController {
 
 
 
-    @GetMapping("/activation/{jwt}")
-    public String activation(@PathVariable String jwt){
 
-        return userService.activation(jwt);
-    }
 
 
 

@@ -71,7 +71,6 @@ public class UserServiceImpl implements UserService {
             return "ERROR of activation";
         }
         User user = userDAO.findByEmail(email);
-
         if(user == null){
             return "ERROR of activation : user == null";
         }else {

@@ -25,6 +25,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender javaMailSender;
 
+
     @Override
     public String sendEmail(String email, String message) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
