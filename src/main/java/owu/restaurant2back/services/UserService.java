@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
-    //    void save(User user);
     ResponseMessage save(User user);
 
     List<User> findAll();
 
     User findOneById(Integer id);
+
+    String activation(String jwt);
+
 }

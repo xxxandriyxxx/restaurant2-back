@@ -11,16 +11,16 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = {"orders"})
+@ToString(exclude = {"restaurants"})
 @EqualsAndHashCode(callSuper = false)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@DiscriminatorValue("CLIENT")
+@DiscriminatorValue("OWNER")
 
-public class Client extends User {
+public class Owner extends User {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "client",
+    @OneToMany(mappedBy = "owner",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    List<Order> orders = new ArrayList<>();
+    List<Restaurant> restaurants = new ArrayList<>();
 }

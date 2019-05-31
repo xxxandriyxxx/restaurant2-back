@@ -29,13 +29,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique = true)
-    // if you want to create a restaurant and a client with the same username
-    // don't use this annotation and use restaurantDAO and clientDAO instead userDAO in their services impl
     private String username;
     private String password;
     @Column(unique = true)
-    // if you want to create a restaurant and a client with the same email
-    // don't use this annotation and use restaurantDAO and clientDAO instead userDAO in their services impl
     private String email;
     private String avatar;
     @Enumerated(EnumType.STRING)
@@ -43,7 +39,7 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
 
 
     public int getId() {
