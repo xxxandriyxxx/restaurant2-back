@@ -12,20 +12,10 @@ public class CommonController {
     @Autowired
     private UserService userService;
 
-
-    @GetMapping("/")
-    public String home(){
-        System.out.println("asdasd");
-        return "forward:/index.html";
-    }
-
-
     @GetMapping("/activation/{jwt}")
     public String  activation(@PathVariable String jwt){
-
         userService.activation(jwt);
         return "activation";
     }
-
 
 }

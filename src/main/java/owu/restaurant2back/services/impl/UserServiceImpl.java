@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userDAO.save(user);
-            emailService.sendEmail(user.getEmail(),"Hello from restaurant!");
+            System.out.println(emailService.sendEmail(user.getEmail()));
             return new ResponseMessage("SUCCESS: User has been saved!");
         }
     }
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String activation(String jwt) {
+    public ResponseMessage activation(String jwt) {
         String email;
 
         try {
@@ -68,15 +68,15 @@ public class UserServiceImpl implements UserService {
                     parseClaimsJws(jwt).getBody().getSubject();
         }catch (MalformedJwtException e){
             System.out.println(e.toString());
-            return "ERROR of activation";
+            return new ResponseMessage("ERROR of activation");
         }
         User user = userDAO.findByEmail(email);
         if(user == null){
-            return "ERROR of activation : user == null";
+            return new ResponseMessage("ERROR of activation : user == null");
         }else {
             user.setEnabled(true);
             userDAO.save(user);
-            return "SUCCESS of activation!";
+            return new ResponseMessage("SUCCESS of activation!");
         }
     }
 

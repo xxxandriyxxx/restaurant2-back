@@ -18,7 +18,6 @@ public class MainController {
     private UserService userService;
 
 
-
 //    @GetMapping("/")
 //    public String home(){
 //        return "home";
@@ -45,8 +44,8 @@ public class MainController {
     }
 
     @PostMapping("/saveOwner")
-    public ResponseMessage saveRestaurant(@RequestBody Owner owner
-                                          ) {
+    public ResponseMessage saveOwner(@RequestBody Owner owner
+    ) {
         owner.setPassword(passwordEncoder.encode(owner.getPassword()));
         return userService.save(owner);
     }
@@ -58,14 +57,19 @@ public class MainController {
         return userService.save(client);
     }
 
+    @PostMapping("/activation")
+    public ResponseMessage activation(@RequestBody ResponseMessage responseMessage
+    ) {
+        return userService.activation(responseMessage.getMessage());
+    }
 
-
-
-
-
-
-
-
+//    @GetMapping("/activation/{jwt}")
+//    public String  activation(@PathVariable String jwt){
+//        System.out.println(jwt);
+//        userService.activation(jwt);
+//
+//        return "activation kkkkk";
+//    }
 
 
     @GetMapping("/get")

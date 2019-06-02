@@ -14,6 +14,6 @@ public interface UserService extends UserDetailsService {
 
     User findOneById(Integer id);
 
-    String activation(String jwt);
+    ResponseMessage activation(String jwt);
 
 }

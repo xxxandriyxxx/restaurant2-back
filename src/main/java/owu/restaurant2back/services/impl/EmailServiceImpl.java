@@ -26,8 +26,12 @@ public class EmailServiceImpl implements EmailService {
     JavaMailSender javaMailSender;
 
 
+    String emailMessage = "Hello! <br> " +
+            "You are registered on the site <a href = 'http://localhost:4200'>http://localhost:4200</a> <br>" +
+            "Please, activate your account by following the link: <br>";
+
     @Override
-    public String sendEmail(String email, String message) {
+    public String sendEmail(String email) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
         String token = Jwts.builder()
@@ -45,7 +49,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             mimeMessage.setFrom(new InternetAddress(env.getProperty("spring.mail.username")));
             helper.setTo(email);
-            helper.setText("http://localhost:8080/activation/" + token,true);
+            helper.setText(emailMessage + "http://localhost:4200/activation/" + token,true);
             helper.setSubject("ACCOUNT ACTIVATION");
         } catch (MessagingException e) {
             e.printStackTrace();
