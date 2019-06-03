@@ -1,6 +1,7 @@
 package owu.restaurant2back.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import owu.restaurant2back.models.*;
@@ -11,8 +12,8 @@ import owu.restaurant2back.services.UserService;
 
 public class MainController {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -38,23 +39,23 @@ public class MainController {
 //        user.setPassword(password);
 
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.save(user);
 //        return user.toString();
-    }
-
-    @PostMapping("/saveOwner")
-    public ResponseMessage saveOwner(@RequestBody Owner owner
-    ) {
-        owner.setPassword(passwordEncoder.encode(owner.getPassword()));
-        return userService.save(owner);
     }
 
     @PostMapping("/saveClient")
     public ResponseMessage saveClient(@RequestBody Client client
     ) {
-        client.setPassword(passwordEncoder.encode(client.getPassword()));
+//        client.setPassword(passwordEncoder.encode(client.getPassword()));
         return userService.save(client);
+    }
+
+    @PostMapping("/saveOwner")
+    public ResponseMessage saveOwner(@RequestBody Owner owner
+    ) {
+//        owner.setPassword(passwordEncoder.encode(owner.getPassword()));
+        return userService.save(owner);
     }
 
     @PostMapping("/activation")
@@ -77,7 +78,7 @@ public class MainController {
         return "get it";
     }
 
-    @GetMapping("/admin")
+    @PostMapping("/admin")
     public String admin() {
         return "hello admin !!!";
     }

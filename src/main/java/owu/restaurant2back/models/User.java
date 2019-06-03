@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = false;
+    private boolean isEnabled = false; // змінити на фолс і розкоментувати відправку іиейла
 
 
     public int getId() {

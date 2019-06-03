@@ -1,5 +1,6 @@
 package owu.restaurant2back.configs;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
-
 
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
