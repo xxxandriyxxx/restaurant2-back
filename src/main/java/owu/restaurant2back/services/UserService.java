@@ -18,6 +18,8 @@ public interface UserService extends UserDetailsService {
 
     ResponseMessage activation(String jwt);
 
+    User findUserByEmail(String email);
+
 //    UserDetails loadUserByUsername(String username);
 
 

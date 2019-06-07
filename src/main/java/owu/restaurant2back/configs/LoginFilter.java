@@ -8,9 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import owu.restaurant2back.models.AccountCredentials;
+import owu.restaurant2back.models.User;
+import owu.restaurant2back.services.impl.UserServiceImpl;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,9 +25,14 @@ import java.util.Date;
 
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    public LoginFilter(String url, AuthenticationManager authManager) {
+
+    private UserDetailsService userDetailsService;
+
+
+    public LoginFilter(String url, AuthenticationManager authManager, UserDetailsService userDetailsService) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
+        this.userDetailsService = userDetailsService;
     }
 
 
@@ -46,6 +54,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
                 .readValue(httpServletRequest.getInputStream(), AccountCredentials.class);
 
         System.out.println(creds);
+        System.out.println(creds.getClass());
         // then  get default method getAuthenticationManager()
         // and set Authentication object based on data from creds object
 
@@ -77,6 +86,15 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
                 .compact();
         //and add it to header
         res.addHeader("Authorization", "Bearer " + jwtoken);
+
+        if (auth.getName().equals("admin")) {
+            res.addHeader("UserClass", "AdminInMemory");
+            res.addHeader("UserLogged", "AdminInMemory");
+        } else {
+            User userLogged = (User) userDetailsService.loadUserByUsername(auth.getName());
+            res.addHeader("UserClass", userLogged.getClass().getSimpleName());
+            res.addHeader("UserLogged", new ObjectMapper().writeValueAsString(userLogged));
+        }
 
     }
 }

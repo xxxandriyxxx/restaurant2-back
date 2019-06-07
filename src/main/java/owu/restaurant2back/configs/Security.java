@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -28,13 +27,6 @@ public class Security extends WebSecurityConfigurerAdapter {
 
 
 
-
-
-
-
-
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -44,9 +36,9 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/saveClient","/saveOwner","/activation","/activation/{jwt}","/findUserByEmail").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers("/get").authenticated()
+                .antMatchers("/admin").authenticated()
 
                 // ??? лекція aws docker 15:51 є ще додаткові методи закоментовані
 
@@ -54,7 +46,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 // We filter the api/login requests
                 // And filter other requests to check the presence of JWT in header
                 .addFilterBefore(new RequestProcessingJWTFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new LoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new LoginFilter("/login", authenticationManager(),userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
 
 
@@ -71,21 +63,14 @@ public class Security extends WebSecurityConfigurerAdapter {
                 HttpMethod.PUT.name(),
                 HttpMethod.DELETE.name()));
         configuration.addExposedHeader("Authorization");
-        //configuration.addExposedHeader("UserClass");  в Назара в проекті
-        //configuration.addExposedHeader("UserLogged"); в Назара в проекті
+        configuration.addExposedHeader("UserClass");
+        configuration.addExposedHeader("UserLogged");
+        configuration.addExposedHeader("LoginStatusCode");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         // source.registerCorsConfiguration("/saveEvent", configuration);
         return source;
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -106,6 +91,7 @@ public class Security extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+
     // back door ====================================================
     private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigurer() {
         return new InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>();
@@ -122,7 +108,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .configure(auth);
         auth.authenticationProvider(provider);
     }
-// back door ====================================================
+    // back door ====================================================
 
 
 }
