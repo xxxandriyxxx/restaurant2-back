@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity (name = "menuSections")
+@Entity(name = "menuSections")
 @Getter
 @Setter
-@ToString(exclude = {"restaurant","dishes"})
+@ToString(exclude = {"restaurant", "dishes"})
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
@@ -30,6 +30,8 @@ public class MenuSection {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     List<Dish> dishes = new ArrayList<>();
-
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    List<Dish> dishes = new ArrayList<>();
 
 }

@@ -16,6 +16,7 @@ import owu.restaurant2back.services.RestaurantService;
 import owu.restaurant2back.services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -146,7 +147,6 @@ public class MainController {
 
     @PostMapping("/changeRestaurant")
     public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
-        System.out.println("resttttt = "+ restaurant);
         return restaurantService.change(restaurant);
     }
 
@@ -167,6 +167,11 @@ public class MainController {
         return menuSectionService.findByRestaurantId(restaurantId);
     }
 
+    @PostMapping("/changeMenuSection")
+    public ResponseMessage changeMenuSection(@RequestBody MenuSection menuSection) {
+        return menuSectionService.change(menuSection);
+    }
+
     @DeleteMapping("deleteMenuSection/{id}")
     public ResponseMessage deleteMenuSectionById(@PathVariable int id) {
         return menuSectionService.deleteById(id);
@@ -177,11 +182,18 @@ public class MainController {
     public ResponseMessage addDish(@PathVariable int restaurantId,
                                    @PathVariable int sectionId,
                                    @RequestBody Dish dish) {
-        System.out.println("dish = " + dish);
         dish.setMenuSection(menuSectionService.findById(sectionId));
         dish.setRestaurant(restaurantService.findById(restaurantId));
         return dishService.save(dish);
     }
+
+//    @PostMapping("/addDish/{restaurantId}/{sectionId}")
+//    public ResponseMessage addDish(@PathVariable int restaurantId,
+//                                   @PathVariable int sectionId,
+//                                   @RequestBody Dish newDish) {
+//        System.out.println("dish = " + newDish);
+//        return dishService.save(restaurantId, sectionId, newDish);
+//    }
 
 
     @GetMapping("/getDishesBySectionId/{id}")
@@ -199,6 +211,17 @@ public class MainController {
     @GetMapping("/getAllDishes")
     public List<Dish> getAllDishes() {
         return dishService.findAll();
+    }
+
+
+    @PostMapping("/changeDish")
+    public ResponseMessage changeDish(@RequestBody Dish dish) {
+        return dishService.change(dish);
+    }
+
+    @DeleteMapping("deleteDish/{id}")
+    public ResponseMessage deleteDishById(@PathVariable int id) {
+        return dishService.deleteById(id);
     }
 
 

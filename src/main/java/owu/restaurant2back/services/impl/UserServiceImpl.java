@@ -105,34 +105,57 @@ public class UserServiceImpl implements UserService {
         return userDAO.existsByEmail(email);
     }
 
+
     @Override
     public ResponseMessage updateProfile(int id, BasicData basicData) {
         User userForUpdate = userDAO.findById(id);
         List<User> users = userDAO.findAll();
-        List<String> logins = new ArrayList<>();
-        List<String> emails = new ArrayList<>();
+        users.remove(userForUpdate);
 
         for (User u : users) {
-            logins.add(u.getUsername());
-            emails.add(u.getEmail());
+            if (u.getUsername().equals(basicData.getUsername())) {
+                return new ResponseMessage("ERROR: User with such login already exists");
+            }
+            if (u.getEmail().equals(basicData.getEmail())) {
+                return new ResponseMessage("ERROR: User with such email already exists");
+            }
         }
-        logins.remove(userForUpdate.getUsername());
-        emails.remove(userForUpdate.getEmail());
+        userForUpdate.setUsername(basicData.getUsername());
+        userForUpdate.setEmail(basicData.getEmail());
+        userForUpdate.setPassword(passwordEncoder.encode(basicData.getPassword()));
+        userDAO.save(userForUpdate);
+        return new ResponseMessage("SUCCESS: User's data have been updated");
 
-        if (logins.contains(basicData.getUsername())) {
-            return new ResponseMessage("ERROR: User with such login already exists");
-        } else if (emails.contains(basicData.getEmail())) {
-            return new ResponseMessage("ERROR: User with such email already exists");
-        } else {
-//            System.out.println("user = " + basicData.toString());
-//            System.out.println("userForUpdate = " + userForUpdate.toString());
-            userForUpdate.setUsername(basicData.getUsername());
-            userForUpdate.setEmail(basicData.getEmail());
-            userForUpdate.setPassword(passwordEncoder.encode(basicData.getPassword()));
-            userDAO.save(userForUpdate);
-            return new ResponseMessage("SUCCESS: User's data have been updated");
-        }
     }
+
+
+    // it works too ---------------------------
+//    @Override
+//    public ResponseMessage updateProfile(int id, BasicData basicData) {
+//        User userForUpdate = userDAO.findById(id);
+//        List<User> users = userDAO.findAll();
+//        List<String> logins = new ArrayList<>();
+//        List<String> emails = new ArrayList<>();
+//
+//        for (User u : users) {
+//            logins.add(u.getUsername());
+//            emails.add(u.getEmail());
+//        }
+//        logins.remove(userForUpdate.getUsername());
+//        emails.remove(userForUpdate.getEmail());
+//
+//        if (logins.contains(basicData.getUsername())) {
+//            return new ResponseMessage("ERROR: User with such login already exists");
+//        } else if (emails.contains(basicData.getEmail())) {
+//            return new ResponseMessage("ERROR: User with such email already exists");
+//        } else {
+//            userForUpdate.setUsername(basicData.getUsername());
+//            userForUpdate.setEmail(basicData.getEmail());
+//            userForUpdate.setPassword(passwordEncoder.encode(basicData.getPassword()));
+//            userDAO.save(userForUpdate);
+//            return new ResponseMessage("SUCCESS: User's data have been updated");
+//        }
+//    }
 
 
 }

@@ -19,9 +19,9 @@ public class RestaurantService {
     private RestaurantDAO restaurantDAO;
 
 
-    //     The same owner can add restaurants with the same names, but their addresses must be different
+    //     The same owner may add restaurants with the same names, but then their addresses must be different
     //     (for example, a restaurant chain).
-    //     Different owners can't have restaurants with the same names at the same address.
+    //     Different owners may have restaurants with the same names, but then their address must be different too.
     public ResponseMessage save(Restaurant restaurant) {
         int ownerId = restaurant.getOwner().getId();
         String name = restaurant.getName();

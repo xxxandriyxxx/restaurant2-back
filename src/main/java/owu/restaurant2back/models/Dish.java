@@ -11,7 +11,8 @@ import java.util.List;
 @Entity(name = "Dishes")
 @Getter
 @Setter
-@ToString(exclude = {"restaurant","menuSection","orders"})
+@ToString(exclude = {"restaurant", "menuSection", "orders"})
+//@ToString(exclude = {"restaurants", "menuSections", "orders"})
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
@@ -30,6 +31,16 @@ public class Dish {
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.DETACH)
     MenuSection menuSection;
+    //    @JsonIgnore
+//    @ManyToMany(mappedBy = "dishes",
+//            fetch = FetchType.LAZY,
+//            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    List<Restaurant> restaurants = new ArrayList<>();
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "dishes",
+//            fetch = FetchType.LAZY,
+//            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    List<MenuSection> menuSections = new ArrayList<>();
     @JsonIgnore
     @ManyToMany(mappedBy = "dishes",
             fetch = FetchType.LAZY,
