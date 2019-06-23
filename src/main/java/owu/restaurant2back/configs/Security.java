@@ -26,7 +26,6 @@ import java.util.Arrays;
 public class Security extends WebSecurityConfigurerAdapter {
 
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -36,8 +35,9 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/","/saveClient","/saveOwner","/activation","/activation/{jwt}","/findUserByEmail").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/", "/saveClient", "/saveOwner", "/activation", "/activation/{jwt}").permitAll()
+                .antMatchers(HttpMethod.POST, "/login","/tryLogin").permitAll()
+                .anyRequest().authenticated()
                 .antMatchers("/admin").authenticated()
 
                 // ??? лекція aws docker 15:51 є ще додаткові методи закоментовані
@@ -46,13 +46,12 @@ public class Security extends WebSecurityConfigurerAdapter {
                 // We filter the api/login requests
                 // And filter other requests to check the presence of JWT in header
                 .addFilterBefore(new RequestProcessingJWTFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new LoginFilter("/login", authenticationManager(),userDetailsService), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new LoginFilter("/login", authenticationManager(), userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
 
 
-
     @Bean
-    CorsConfigurationSource corsConfigurationSource(){
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // allows to ask our server from this url
         configuration.addAllowedHeader("*");
@@ -64,14 +63,14 @@ public class Security extends WebSecurityConfigurerAdapter {
                 HttpMethod.DELETE.name()));
         configuration.addExposedHeader("Authorization");
         configuration.addExposedHeader("UserClass");
-        configuration.addExposedHeader("UserLogged");
+        configuration.addExposedHeader("UserId");
+//        configuration.addExposedHeader("UserLogged");
         configuration.addExposedHeader("LoginStatusCode");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         // source.registerCorsConfiguration("/saveEvent", configuration);
         return source;
     }
-
 
 
     @Autowired

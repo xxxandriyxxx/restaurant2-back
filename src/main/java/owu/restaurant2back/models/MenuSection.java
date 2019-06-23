@@ -11,7 +11,7 @@ import java.util.List;
 @Entity (name = "menuSections")
 @Getter
 @Setter
-@ToString(exclude = {"dishes"})
+@ToString(exclude = {"restaurant","dishes"})
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
@@ -21,10 +21,11 @@ public class MenuSection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    Restaurant restaurant;
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.DETACH)
+    Restaurant restaurant;
+//    @JsonIgnore
     @OneToMany(mappedBy = "menuSection",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)

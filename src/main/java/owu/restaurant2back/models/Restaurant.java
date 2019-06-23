@@ -28,8 +28,9 @@ public class Restaurant {
     String bigPicture;
     String smallPicture;
     String about;
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.DETACH)
     Owner owner;
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant",

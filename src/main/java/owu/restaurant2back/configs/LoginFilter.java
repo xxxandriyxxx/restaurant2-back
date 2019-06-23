@@ -82,18 +82,22 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         String jwtoken = Jwts.builder()
                 .setSubject(auth.getName())
                 .signWith(SignatureAlgorithm.HS512, "yes".getBytes())
-                .setExpiration(new Date(System.currentTimeMillis() + 200000))
+                .setExpiration(new Date(System.currentTimeMillis() + 10000000))
                 .compact();
         //and add it to header
         res.addHeader("Authorization", "Bearer " + jwtoken);
 
         if (auth.getName().equals("admin")) {
             res.addHeader("UserClass", "AdminInMemory");
-            res.addHeader("UserLogged", "AdminInMemory");
+            res.addHeader("UserId", "0");
+
+//            res.addHeader("UserLogged", "AdminInMemory");
         } else {
             User userLogged = (User) userDetailsService.loadUserByUsername(auth.getName());
             res.addHeader("UserClass", userLogged.getClass().getSimpleName());
-            res.addHeader("UserLogged", new ObjectMapper().writeValueAsString(userLogged));
+            res.addHeader("UserId", Integer.toString(userLogged.getId()));
+
+//            res.addHeader("UserLogged", new ObjectMapper().writeValueAsString(userLogged));
         }
 
     }

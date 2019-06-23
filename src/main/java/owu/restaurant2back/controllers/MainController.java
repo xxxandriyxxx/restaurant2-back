@@ -1,8 +1,6 @@
 package owu.restaurant2back.controllers;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.lang.Assert;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -10,16 +8,15 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import owu.restaurant2back.models.*;
+import owu.restaurant2back.services.DishService;
+import owu.restaurant2back.services.MenuSectionService;
+import owu.restaurant2back.services.RestaurantService;
 import owu.restaurant2back.services.UserService;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 
 
 @RestController
@@ -31,6 +28,15 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private MenuSectionService menuSectionService;
+
+    @Autowired
+    private DishService dishService;
 
     private String username;
     private String password;
@@ -81,70 +87,156 @@ public class MainController {
     }
 
     @PostMapping("/tryLogin")
-    public String tryLogin(@RequestBody LoginData loginData,
+    public String tryLogin(@RequestBody BasicData basicData,
                            HttpServletResponse response) {
-        System.out.println(loginData);
-        if (!loginData.getEmail().isEmpty()) {
-            System.out.println("is empty");
-
-            /////////// дописати
-
+        System.out.println(basicData);
+        if (!basicData.getEmail().isEmpty()) {
+            if (userService.existsByEmail(basicData.getEmail())) {
+                basicData.setUsername(userService.findUserByEmail(basicData.getEmail()).getUsername());
+            } else {
+                basicData.setUsername(null);
+            }
         }
+        System.out.println(basicData);
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
-        request.body(loginData);
+        request.body(basicData);
         Response res = request.post("/login");
-        System.out.println(res.getHeaders().toString());
-        System.out.println(res.getBody());
+        System.out.println("res Headers: " + res.getHeaders().toString());
+        System.out.println("res Body: " + res.getBody().asString());
         if (res.getStatusCode() >= 200 && res.getStatusCode() < 400) {
             response.addHeader("Authorization", res.getHeader("Authorization"));
             response.addHeader("UserClass", res.getHeader("UserClass"));
-            response.addHeader("UserLogged", res.getHeader("UserLogged"));
-            response.addHeader("LoginStatusCode",Integer.toString(res.getStatusCode()));
+//            response.addHeader("UserLogged", res.getHeader("UserLogged"));
+            response.addHeader("UserId", res.getHeader("UserId"));
+
+            response.addHeader("LoginStatusCode", Integer.toString(res.getStatusCode()));
             return "SUCCESS: user has been logged !";
         } else {
-            response.addHeader("LoginStatusCode",Integer.toString(res.getStatusCode()));
+            response.addHeader("LoginStatusCode", Integer.toString(res.getStatusCode()));
             return "ERROR: " + res.getStatusCode() + " " + res.getBody().asString();
         }
+    }
 
+    //    @CrossOrigin(origins = "*")
+    @GetMapping("/getUserById/{id}")
+    public User activation(@PathVariable int id) {
+        return userService.findById(id);
     }
 
 
-    @PostMapping("/loginme")
-//    @ResponseBody
-    public void loginMe(@RequestParam String loginEmail,
-                        @RequestParam String password,
-                        @RequestParam String byLogin,
-                        @RequestParam String byEmail) {
-
-        System.out.println("loginEmail = " + loginEmail);
-        System.out.println("password = " + password);
-        System.out.println("byLogin = " + byLogin);
-        System.out.println("byEmail = " + byEmail);
-
-
-        if (byEmail == "true") {
-            username = userService.findUserByEmail(loginEmail).getUsername();
-        } else {
-            username = loginEmail;
-        }
-
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("username", username);
-        requestBody.put("password", password);
-
-        RequestSpecification request = RestAssured.given();
-        request.header("Content-Type", "application/json");
-        request.body(requestBody.toString());
-        Response response = request.post("/login");
-
-//        int statusCode = response.getStatusCode();
-//        Assert.assertEquals(statusCode, 201);
-//        String successCode = response.jsonPath().get("SuccessCode");
-//        Assert.assertEquals(successCode, "OPERATION_SUCCESS");
-        System.out.println(response.getBody().asString());
-
+    @PostMapping("/updateProfile/{id}")
+    public ResponseMessage updateProfile(@PathVariable int id,
+                                         @RequestBody BasicData basicData) {
+        return userService.updateProfile(id, basicData);
     }
+
+
+    @PostMapping("/addRestaurant/{ownerId}")
+    public ResponseMessage addRestaurant(@PathVariable int ownerId,
+                                         @RequestBody Restaurant restaurant) {
+        restaurant.setOwner((Owner) userService.findById(ownerId));
+        return restaurantService.save(restaurant);
+    }
+
+    @GetMapping("/getRestaurants/{ownerId}")
+    public List<Restaurant> getRestaurants(@PathVariable int ownerId) {
+        return restaurantService.findByOwnerId(ownerId);
+    }
+
+    @PostMapping("/changeRestaurant")
+    public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
+        System.out.println("resttttt = "+ restaurant);
+        return restaurantService.change(restaurant);
+    }
+
+    @DeleteMapping("/deleteRestaurant/{id}")
+    public ResponseMessage deleteRestaurant(@PathVariable int id) {
+        return restaurantService.deleteById(id);
+    }
+
+    @PostMapping("/addMenuSection/{restaurantId}")
+    public ResponseMessage addMenuSection(@PathVariable int restaurantId,
+                                          @RequestBody MenuSection menuSection) {
+        menuSection.setRestaurant(restaurantService.findById(restaurantId));
+        return menuSectionService.save(menuSection);
+    }
+
+    @GetMapping("/getMenuSections/{restaurantId}")
+    public List<MenuSection> getMenuSections(@PathVariable int restaurantId) {
+        return menuSectionService.findByRestaurantId(restaurantId);
+    }
+
+    @DeleteMapping("deleteMenuSection/{id}")
+    public ResponseMessage deleteMenuSectionById(@PathVariable int id) {
+        return menuSectionService.deleteById(id);
+    }
+
+
+    @PostMapping("/addDish/{restaurantId}/{sectionId}")
+    public ResponseMessage addDish(@PathVariable int restaurantId,
+                                   @PathVariable int sectionId,
+                                   @RequestBody Dish dish) {
+        System.out.println("dish = " + dish);
+        dish.setMenuSection(menuSectionService.findById(sectionId));
+        dish.setRestaurant(restaurantService.findById(restaurantId));
+        return dishService.save(dish);
+    }
+
+
+    @GetMapping("/getDishesBySectionId/{id}")
+    public List<Dish> getDishesBySectionId(@PathVariable int id) {
+        return dishService.findByMenuSectionId(id);
+    }
+
+
+    @GetMapping("/getDishesByRestaurantId/{id}")
+    public List<Dish> getDishesByRestaurantId(@PathVariable int id) {
+        return dishService.findByRestaurantId(id);
+    }
+
+
+    @GetMapping("/getAllDishes")
+    public List<Dish> getAllDishes() {
+        return dishService.findAll();
+    }
+
+
+//    @PostMapping("/loginme")
+////    @ResponseBody
+//    public void loginMe(@RequestParam String loginEmail,
+//                        @RequestParam String password,
+//                        @RequestParam String byLogin,
+//                        @RequestParam String byEmail) {
+//
+//        System.out.println("loginEmail = " + loginEmail);
+//        System.out.println("password = " + password);
+//        System.out.println("byLogin = " + byLogin);
+//        System.out.println("byEmail = " + byEmail);
+//
+//
+//        if (byEmail == "true") {
+//            username = userService.findUserByEmail(loginEmail).getUsername();
+//        } else {
+//            username = loginEmail;
+//        }
+//
+//        JSONObject requestBody = new JSONObject();
+//        requestBody.put("username", username);
+//        requestBody.put("password", password);
+//
+//        RequestSpecification request = RestAssured.given();
+//        request.header("Content-Type", "application/json");
+//        request.body(requestBody.toString());
+//        Response response = request.post("/login");
+//
+////        int statusCode = response.getStatusCode();
+////        Assert.assertEquals(statusCode, 201);
+////        String successCode = response.jsonPath().get("SuccessCode");
+////        Assert.assertEquals(successCode, "OPERATION_SUCCESS");
+//        System.out.println(response.getBody().asString());
+//
+//    }
 
 
 //
@@ -185,6 +277,7 @@ public class MainController {
 //        System.out.println(response.getBody().asString());
 //
 //    }
+
 
     @PostMapping("/some")
 
