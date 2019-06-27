@@ -11,16 +11,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = {"orders"})
+@ToString
 @EqualsAndHashCode(callSuper = false)
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @DiscriminatorValue("CLIENT")
 
 public class Client extends User {
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "client",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    List<Order> orders = new ArrayList<>();
 }

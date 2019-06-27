@@ -46,6 +46,10 @@ public class RestaurantService {
         return restaurantDAO.findByOwnerId(id);
     }
 
+    public List<Restaurant> findAll() {
+        return restaurantDAO.findAll();
+    }
+
     public ResponseMessage deleteById(int id) {
         restaurantDAO.deleteById(id);
         return new ResponseMessage("SUCCESS: The restaurant has been deleted");

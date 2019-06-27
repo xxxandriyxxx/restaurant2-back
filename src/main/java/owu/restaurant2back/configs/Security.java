@@ -35,7 +35,8 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/", "/saveClient", "/saveOwner", "/activation", "/activation/{jwt}").permitAll()
+                .antMatchers("/", "/saveClient", "/saveOwner", "/activation", "/activation/{jwt}",
+                        "/getAllRestaurants","/getMenuSections/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login","/tryLogin").permitAll()
                 .anyRequest().authenticated()
                 .antMatchers("/admin").authenticated()

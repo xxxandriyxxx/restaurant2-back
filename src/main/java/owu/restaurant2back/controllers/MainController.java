@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 import owu.restaurant2back.models.*;
-import owu.restaurant2back.services.DishService;
-import owu.restaurant2back.services.MenuSectionService;
-import owu.restaurant2back.services.RestaurantService;
-import owu.restaurant2back.services.UserService;
+import owu.restaurant2back.services.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -38,6 +35,9 @@ public class MainController {
 
     @Autowired
     private DishService dishService;
+
+    @Autowired
+    private OrderService orderService;
 
     private String username;
     private String password;
@@ -145,6 +145,11 @@ public class MainController {
         return restaurantService.findByOwnerId(ownerId);
     }
 
+    @GetMapping("/getAllRestaurants")
+    public List<Restaurant> getAllRestaurants() {
+        return restaurantService.findAll();
+    }
+
     @PostMapping("/changeRestaurant")
     public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
         return restaurantService.change(restaurant);
@@ -225,6 +230,14 @@ public class MainController {
     }
 
 
+    @PostMapping("/makeOrder/{userId}/{restaurantId}")
+    public ResponseMessage makeOrder(@PathVariable int userId,
+                                     @PathVariable int restaurantId,
+                                     @RequestBody Order order) {
+        System.out.println(order);
+        return orderService.makeOrder(order, userId, restaurantId);
+    }
+
 //    @PostMapping("/loginme")
 ////    @ResponseBody
 //    public void loginMe(@RequestParam String loginEmail,
@@ -263,8 +276,6 @@ public class MainController {
 
 
 //
-//    @CrossOrigin(origins = "*")
-//
 //    @PostMapping("/loginme")
 ////    @ResponseBody
 //    public void loginMe(@RequestParam String loginEmail,
@@ -302,58 +313,5 @@ public class MainController {
 //    }
 
 
-    @PostMapping("/some")
 
-    public void some(
-//            @RequestBody Model model
-            @RequestParam String login,
-            @RequestParam String password
-    ) {
-//        System.out.println(model.toString());
-
-        System.out.println("login = " + login);
-        System.out.println("password = " + password);
-
-
-    }
-
-//    @PostMapping("/findNameByEmail")
-//    public ResponseMessage findUserByEmail(@RequestBody ResponseMessage responseMessage
-//    ) {
-//        return userService.findNameByEmail(responseMessage.getMessage());
-////        return userService.findUserByEmail(email);
-//    }
-
-
-//    @GetMapping("/activation/{jwt}")
-//    public String  activation(@PathVariable String jwt){
-//        System.out.println(jwt);
-//        userService.activation(jwt);
-//
-//        return "activation kkkkk";
-//    }
-
-
-    @GetMapping("/get")
-    public String get() {
-        return "get it";
-    }
-
-    @PostMapping("/admin")
-    public String admin() {
-        return "hello admin !!!";
-    }
-
-//    @Autowired
-//    private UserService userService;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//
-//    @PostMapping("/saveUser")
-//    public String saveUser(User user){
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userService.save(user);
-//        return "redirect:/login";
-//    }
 }

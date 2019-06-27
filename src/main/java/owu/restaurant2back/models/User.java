@@ -5,7 +5,9 @@ package owu.restaurant2back.models;
 //import lombok.AccessLevel;
 //import lombok.experimental.FieldDefaults;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,7 @@ import java.util.List;
 //@Getter
 //@Setter
 //@FieldDefaults(level = AccessLevel.PRIVATE)
+//@ToString(exclude = {"orders"})
 @NoArgsConstructor
 @Inheritance
 @DiscriminatorColumn(name = "type")
@@ -39,7 +42,12 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true; // змінити на фолс і розкоментувати відправку іиейла
+    private boolean isEnabled = true; // змінити на фолс і розкоментувати відправку імейла
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 
 
     public int getId() {
@@ -96,6 +104,14 @@ public class User implements UserDetails {
         isAccountNonExpired = accountNonExpired;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
@@ -137,6 +153,7 @@ public class User implements UserDetails {
         return authorities;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -149,6 +166,7 @@ public class User implements UserDetails {
                 ", isAccountNonLocked=" + isAccountNonLocked +
                 ", isCredentialsNonExpired=" + isCredentialsNonExpired +
                 ", isEnabled=" + isEnabled +
+                ", orders=" + orders +
                 '}';
     }
 }

@@ -28,15 +28,19 @@ public class Order {
     OrderStatus orderStatus;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    Client client;
+            cascade = CascadeType.DETACH)
+    User user;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.DETACH)
     Restaurant restaurant;
-//    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+            cascade = {CascadeType.DETACH})
     List<Dish> dishes = new ArrayList<>();
+
+//    List<Integer> amount = new ArrayList<>();
+
+
 
 }
