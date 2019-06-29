@@ -238,6 +238,24 @@ public class MainController {
         return orderService.makeOrder(order, userId, restaurantId);
     }
 
+
+    @GetMapping("/getMyOrders/{id}")
+    public List<Order> getMyOrders(@PathVariable int id) {
+        return orderService.findByUserId(id);
+    }
+
+    @GetMapping("/getOrdersByOwnerId/{id}")
+    public List<Order> getOrdersByOwnerId(@PathVariable int id) {
+        return orderService.findByOwnerId(id);
+    }
+
+    @PostMapping("/changeOrderStatus")
+    public ResponseMessage changeOrderStatus(@RequestBody Order order) {
+        return orderService.changeStatus(order);
+//        return new ResponseMessage("kuku");
+    }
+
+
 //    @PostMapping("/loginme")
 ////    @ResponseBody
 //    public void loginMe(@RequestParam String loginEmail,
@@ -311,7 +329,6 @@ public class MainController {
 //        System.out.println(response.getBody().asString());
 //
 //    }
-
 
 
 }

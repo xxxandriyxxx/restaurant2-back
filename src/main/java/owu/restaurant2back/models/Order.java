@@ -2,6 +2,7 @@ package owu.restaurant2back.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -25,22 +26,28 @@ public class Order {
     int id;
     Date date;
     @Enumerated(EnumType.STRING)
-    OrderStatus orderStatus;
+    OrderStatus status;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.DETACH)
     User user;
-    @JsonIgnore
+    String username;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.DETACH)
     Restaurant restaurant;
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH})
     List<Dish> dishes = new ArrayList<>();
+    int[] amount;
 
-//    List<Integer> amount = new ArrayList<>();
-
-
-
+//    public Order(Date date, OrderStatus status, User user, Restaurant restaurant, List<Dish> dishes, int[] amount) {
+//        this.date = date;
+//        this.status = status;
+//        this.user = user;
+//        this.restaurant = restaurant;
+//        this.dishes = dishes;
+//        this.username = user.getUsername();
+//        this.amount = amount;
+//    }
 }
