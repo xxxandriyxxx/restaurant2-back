@@ -20,24 +20,42 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String pathToFolder = System.getProperty("user.home") + File.separator + "Restaurant_Project"
+                + File.separator + "Logo" + File.separator;
+        registry.addResourceHandler("/logo/**").addResourceLocations("file:///" + pathToFolder);
+    }
+
+
+
+
+
+
+
+
+
 //    @Override
 //    public void addViewControllers(ViewControllerRegistry registry) {
 //        registry.addViewController("/about").setViewName("about");
 //    }
 
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource bundleMessageSource = new ReloadableResourceBundleMessageSource();
-        bundleMessageSource.setBasename("classpath:messages");
-        return bundleMessageSource;
-    }
-
-    @Bean
-    public LocalValidatorFactoryBean validatorFactoryBean() {
-        LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
-        validatorFactoryBean.setValidationMessageSource(messageSource());
-        return validatorFactoryBean;
-    }
+//    @Bean
+//    public MessageSource messageSource() {
+//        ReloadableResourceBundleMessageSource bundleMessageSource = new ReloadableResourceBundleMessageSource();
+//        bundleMessageSource.setBasename("classpath:messages");
+//        return bundleMessageSource;
+//    }
+//
+//    @Bean
+//    public LocalValidatorFactoryBean validatorFactoryBean() {
+//        LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
+//        validatorFactoryBean.setValidationMessageSource(messageSource());
+//        return validatorFactoryBean;
+//    }
 
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {

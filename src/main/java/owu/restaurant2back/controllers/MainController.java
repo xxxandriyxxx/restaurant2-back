@@ -1,18 +1,26 @@
 package owu.restaurant2back.controllers;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.http.RequestEntity;
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import owu.restaurant2back.models.*;
 import owu.restaurant2back.services.*;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,11 +141,38 @@ public class MainController {
     }
 
 
+//    @PostMapping("/addRestaurant/{ownerId}")
+//    public ResponseMessage addRestaurant(@PathVariable int ownerId,
+//                                         @RequestBody Restaurant restaurant) {
+//        restaurant.setOwner((Owner) userService.findById(ownerId));
+//        return restaurantService.save(restaurant);
+//    }
+
     @PostMapping("/addRestaurant/{ownerId}")
     public ResponseMessage addRestaurant(@PathVariable int ownerId,
-                                         @RequestBody Restaurant restaurant) {
-        restaurant.setOwner((Owner) userService.findById(ownerId));
-        return restaurantService.save(restaurant);
+                                         @RequestParam("restaurant") String restaurant,
+                                         @RequestParam("logo") MultipartFile logo) throws IOException {
+        return restaurantService.save(ownerId, restaurant, logo);
+    }
+
+    // change including logo
+//    @PostMapping("/changeRestaurant")
+//    public ResponseMessage changeRestaurant(@RequestParam("restaurant") String restaurant,
+//                                            @RequestParam("logo") MultipartFile logo) throws IOException {
+//        return restaurantService.change(restaurant, logo);
+//    }
+
+    // change except logo
+    @PostMapping("/changeRestaurant")
+    public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
+        return restaurantService.change(restaurant);
+    }
+
+    @PostMapping("/changeLogo/{restId}")
+    public ResponseMessage changeLogo(@PathVariable int restId,
+                                    @RequestParam("logo") MultipartFile logo) {
+        int ownerId = restaurantService.findById(restId).getOwner().getId();
+        return new ResponseMessage(restaurantService.saveLogo(ownerId, restId, logo));
     }
 
     @GetMapping("/getRestaurants/{ownerId}")
@@ -150,15 +185,11 @@ public class MainController {
         return restaurantService.findAll();
     }
 
-    @PostMapping("/changeRestaurant")
-    public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.change(restaurant);
-    }
-
     @DeleteMapping("/deleteRestaurant/{id}")
     public ResponseMessage deleteRestaurant(@PathVariable int id) {
         return restaurantService.deleteById(id);
     }
+
 
     @PostMapping("/addMenuSection/{restaurantId}")
     public ResponseMessage addMenuSection(@PathVariable int restaurantId,

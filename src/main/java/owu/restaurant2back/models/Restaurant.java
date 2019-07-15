@@ -28,6 +28,7 @@ public class Restaurant {
     String bigPicture;
     String smallPicture;
     String about;
+    String logo;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.DETACH)
