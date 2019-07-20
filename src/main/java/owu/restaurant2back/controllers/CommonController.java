@@ -12,6 +12,7 @@ public class CommonController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/activation/{jwt}")
     public String  activation(@PathVariable String jwt){
         userService.activation(jwt);

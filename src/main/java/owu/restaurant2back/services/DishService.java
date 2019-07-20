@@ -18,10 +18,10 @@ public class DishService {
     //     You should use only the unique names of dishes for the same restaurant.
     public ResponseMessage save(Dish dish) {
         if (dishDAO.existsByNameAndRestaurantId(dish.getName(),dish.getRestaurant().getId())){
-            return new ResponseMessage("ERROR: You already have a dish with such name in this restaurant");
+            return new ResponseMessage("ERROR: You already have a dish with a such name in this restaurant");
         } else {
             dishDAO.save(dish);
-            return new ResponseMessage("SUCCESS: The dish has been added");
+            return new ResponseMessage("The dish has been added");
         }
     }
 
@@ -38,26 +38,25 @@ public class DishService {
     }
 
 
-    //     You should use only the unique names of dishes for the same restaurant.
     public ResponseMessage change (Dish dish){
         Dish dishForChange = dishDAO.findById(dish.getId());
         List<Dish> dishes = dishDAO.findByRestaurantId(dishForChange.getRestaurant().getId());
         dishes.remove(dishForChange);
         for (Dish d : dishes){
             if(d.getName().equals(dish.getName())){
-                return new ResponseMessage("ERROR: You already have a dish with such name in this restaurant");
+                return new ResponseMessage("ERROR: You already have a dish with a such name in this restaurant");
             }
         }
         dishForChange.setName(dish.getName());
         dishForChange.setDescription(dish.getDescription());
         dishForChange.setPrice(dish.getPrice());
         dishDAO.save(dishForChange);
-        return new ResponseMessage("SUCCESS: The dish has been changed");
+        return new ResponseMessage("The dish has been updated");
     }
 
     public ResponseMessage deleteById(int id){
         dishDAO.deleteById(id);
-        return new ResponseMessage("SUCCESS: The dish has been deleted");
+        return new ResponseMessage("The dish has been deleted");
     }
 
 

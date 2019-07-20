@@ -56,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
             return String.valueOf(e);
         }
         javaMailSender.send(mimeMessage);
-        return "Confirmation message was sent!";
+        return "Confirmation message has been sent!"; // перенести з юзер сервісу
     }
 
 

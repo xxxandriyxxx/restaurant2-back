@@ -5,7 +5,6 @@ import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import owu.restaurant2back.dao.UserDAO;
@@ -14,12 +13,10 @@ import owu.restaurant2back.models.ResponseMessage;
 import owu.restaurant2back.models.User;
 import owu.restaurant2back.services.EmailService;
 import owu.restaurant2back.services.UserService;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
-//@Service (value = "nameasdqwe")
+
+//@Service (value = "asdqwe")
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -35,15 +32,17 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return new ResponseMessage("ERROR: User == null");
         } else if (userDAO.existsByUsername(user.getUsername())) {
-            return new ResponseMessage("ERROR: User with such login already exists");
+            return new ResponseMessage("ERROR: The user with the same login already exists");
         } else if (userDAO.existsByEmail(user.getEmail())) {
-            return new ResponseMessage("ERROR: User with such email already exists");
+            return new ResponseMessage("ERROR: The user with the same email already exists");
         } else {
             System.out.println("user = " + user.toString());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userDAO.save(user);
-//            System.out.println(emailService.sendEmail(user.getEmail())); //розкоментувати
-            return new ResponseMessage("SUCCESS: User has been saved");
+//            System.out.println(emailService.sendEmail(user.getEmail())); //!!!!!!!!!!!
+            return new ResponseMessage("You have been registered. " +
+                    "A confirmation letter was sent to your mail. " +
+                    "Follow the instruction in the letter to activate your account."); // перенести в мейл сервіс
         }
     }
 
@@ -65,7 +64,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseMessage activation(String jwt) {
         String email;
-
         try {
             email = Jwts.parser().
                     setSigningKey("yes".getBytes()).
@@ -87,17 +85,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(int id) {
         return userDAO.findById(id);
-
     }
 
     @Override
     public User findUserByEmail(String email) {
         return userDAO.findByEmail(email);
-//        if (userDAO.existsByEmail(email)) {   // ?????????
-//            return userDAO.findByEmail(email);
-//        } else {
-//            return new User();
-//        }
     }
 
     @Override
@@ -105,57 +97,26 @@ public class UserServiceImpl implements UserService {
         return userDAO.existsByEmail(email);
     }
 
-
     @Override
-    public ResponseMessage updateProfile(int id, BasicData basicData) {
+    public ResponseMessage update(int id, BasicData basicData) {
         User userForUpdate = userDAO.findById(id);
         List<User> users = userDAO.findAll();
         users.remove(userForUpdate);
 
         for (User u : users) {
             if (u.getUsername().equals(basicData.getUsername())) {
-                return new ResponseMessage("ERROR: User with such login already exists");
+                return new ResponseMessage("ERROR: The user with the same login already exists");
             }
             if (u.getEmail().equals(basicData.getEmail())) {
-                return new ResponseMessage("ERROR: User with such email already exists");
+                return new ResponseMessage("ERROR: The user with the same email already exists");
             }
         }
         userForUpdate.setUsername(basicData.getUsername());
         userForUpdate.setEmail(basicData.getEmail());
         userForUpdate.setPassword(passwordEncoder.encode(basicData.getPassword()));
         userDAO.save(userForUpdate);
-        return new ResponseMessage("SUCCESS: User's data have been updated");
-
+        return new ResponseMessage("Your account data have been updated");
     }
-
-
-    // it works too ---------------------------
-//    @Override
-//    public ResponseMessage updateProfile(int id, BasicData basicData) {
-//        User userForUpdate = userDAO.findById(id);
-//        List<User> users = userDAO.findAll();
-//        List<String> logins = new ArrayList<>();
-//        List<String> emails = new ArrayList<>();
-//
-//        for (User u : users) {
-//            logins.add(u.getUsername());
-//            emails.add(u.getEmail());
-//        }
-//        logins.remove(userForUpdate.getUsername());
-//        emails.remove(userForUpdate.getEmail());
-//
-//        if (logins.contains(basicData.getUsername())) {
-//            return new ResponseMessage("ERROR: User with such login already exists");
-//        } else if (emails.contains(basicData.getEmail())) {
-//            return new ResponseMessage("ERROR: User with such email already exists");
-//        } else {
-//            userForUpdate.setUsername(basicData.getUsername());
-//            userForUpdate.setEmail(basicData.getEmail());
-//            userForUpdate.setPassword(passwordEncoder.encode(basicData.getPassword()));
-//            userDAO.save(userForUpdate);
-//            return new ResponseMessage("SUCCESS: User's data have been updated");
-//        }
-//    }
 
 
 }

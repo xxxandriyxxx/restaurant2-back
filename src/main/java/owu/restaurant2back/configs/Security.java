@@ -35,13 +35,12 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/", "/saveClient", "/saveOwner", "/activation", "/activation/{jwt}",
-                        "/getAllRestaurants","/getMenuSections/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/login","/tryLogin").permitAll()
+                .antMatchers("/", "/save/client", "/save/owner", "/activation", "/activation/{jwt}",
+                        "/restaurants/get","/restaurant/menu-sections/get/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/login","/login/try").permitAll()
                 .anyRequest().authenticated()
                 .antMatchers("/admin").authenticated()
 
-                // ??? лекція aws docker 15:51 є ще додаткові методи закоментовані
 
                 .and()
                 // We filter the api/login requests
@@ -65,7 +64,6 @@ public class Security extends WebSecurityConfigurerAdapter {
         configuration.addExposedHeader("Authorization");
         configuration.addExposedHeader("UserClass");
         configuration.addExposedHeader("UserId");
-//        configuration.addExposedHeader("UserLogged");
         configuration.addExposedHeader("LoginStatusCode");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

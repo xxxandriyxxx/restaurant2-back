@@ -25,8 +25,7 @@ public class Restaurant {
     String name;
     String address;
     String phoneNumber;
-    String bigPicture;
-    String smallPicture;
+    String site;
     String about;
     String logo;
     @JsonIgnore
