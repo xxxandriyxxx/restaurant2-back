@@ -42,7 +42,7 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true; // змінити на фолс і розкоментувати відправку імейла
+    private boolean isEnabled = false; // змінити на фолс і розкоментувати відправку імейла
     @JsonIgnore
     @OneToMany(mappedBy = "user",
             fetch = FetchType.LAZY,

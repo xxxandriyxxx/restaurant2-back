@@ -26,20 +26,35 @@ public class EmailServiceImpl implements EmailService {
     JavaMailSender javaMailSender;
 
 
-    String emailMessage = "Hello! <br> " +
+    private String messageAfterSave = "Hello! <br> " +
             "You are registered on the site <a href = 'http://localhost:4200'>http://localhost:4200</a> <br>" +
             "Please, activate your account by following the link: <br>";
 
+    private String messageAfterUpdate = "Hello! <br> " +
+            "You are registered on the site <a href = 'http://localhost:4200'>http://localhost:4200</a> <br>" +
+            "Your email address has been updated. <br>" +
+            "Please, activate your account by following the link: <br>";
+
     @Override
-    public String sendEmail(String email) {
+    public String confirmAfterSave(String email) {
+        return sendEmail(email, messageAfterSave);
+    }
+
+    @Override
+    public String confirmAfterUpdate(String email) {
+        return sendEmail(email, messageAfterUpdate);
+    }
+
+    @Override
+    public String sendEmail(String email, String message) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
         String token = Jwts.builder()
                 .setSubject(email)
                 .signWith(SignatureAlgorithm.HS512, "yes".getBytes())
-                .setExpiration(new Date(System.currentTimeMillis() + 200000))
+                .setExpiration(new Date(System.currentTimeMillis() + 10000000))
                 .compact();
-        System.out.println("token = "+token);
+        System.out.println("token = " + token);
         try {
             helper = new MimeMessageHelper(mimeMessage, true);
         } catch (MessagingException e) {
@@ -49,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             mimeMessage.setFrom(new InternetAddress(env.getProperty("spring.mail.username")));
             helper.setTo(email);
-            helper.setText(emailMessage + "http://localhost:4200/activation/" + token,true);
+            helper.setText(message + "http://localhost:4200/activation/" + token, true);
             helper.setSubject("ACCOUNT ACTIVATION");
         } catch (MessagingException e) {
             e.printStackTrace();

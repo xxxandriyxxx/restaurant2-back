@@ -4,5 +4,9 @@ import owu.restaurant2back.models.ResponseMessage;
 
 public interface EmailService {
 
-    public String sendEmail(String email);
+    public String confirmAfterSave(String email);
+
+    public String confirmAfterUpdate(String email);
+
+    public String sendEmail(String email, String message);
 }

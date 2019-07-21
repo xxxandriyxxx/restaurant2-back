@@ -13,10 +13,10 @@ import owu.restaurant2back.models.ResponseMessage;
 import owu.restaurant2back.models.User;
 import owu.restaurant2back.services.EmailService;
 import owu.restaurant2back.services.UserService;
+
 import java.util.List;
 
 
-//@Service (value = "asdqwe")
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -35,15 +35,14 @@ public class UserServiceImpl implements UserService {
             return new ResponseMessage("ERROR: The user with the same login already exists");
         } else if (userDAO.existsByEmail(user.getEmail())) {
             return new ResponseMessage("ERROR: The user with the same email already exists");
-        } else {
-            System.out.println("user = " + user.toString());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userDAO.save(user);
-//            System.out.println(emailService.sendEmail(user.getEmail())); //!!!!!!!!!!!
-            return new ResponseMessage("You have been registered. " +
-                    "A confirmation letter was sent to your mail. " +
-                    "Follow the instruction in the letter to activate your account."); // перенести в мейл сервіс
         }
+        System.out.println("user = " + user.toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDAO.save(user);
+        System.out.println(emailService.confirmAfterSave(user.getEmail()));
+        return new ResponseMessage("You have been registered. " +
+                "A confirmation letter was sent to your email address. " +
+                "Please, follow the instruction in the letter to activate your account.");
     }
 
     @Override
@@ -112,10 +111,20 @@ public class UserServiceImpl implements UserService {
             }
         }
         userForUpdate.setUsername(basicData.getUsername());
-        userForUpdate.setEmail(basicData.getEmail());
         userForUpdate.setPassword(passwordEncoder.encode(basicData.getPassword()));
-        userDAO.save(userForUpdate);
-        return new ResponseMessage("Your account data have been updated");
+        if (userForUpdate.getEmail().equals(basicData.getEmail())) {
+            userDAO.save(userForUpdate);
+            return new ResponseMessage("Your account data have been updated");
+        } else {
+            userForUpdate.setEmail(basicData.getEmail());
+            userForUpdate.setEnabled(false);
+            userDAO.save(userForUpdate);
+            System.out.println(emailService.confirmAfterUpdate(userForUpdate.getEmail()));
+            return new ResponseMessage("Your account data have been updated. " +
+                    "A confirmation letter was sent to your new email address. " +
+                    "Follow the instruction in the letter to activate your account.");
+        }
+
     }
 
 
