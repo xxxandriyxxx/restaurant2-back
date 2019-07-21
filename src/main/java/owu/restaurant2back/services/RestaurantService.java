@@ -11,6 +11,9 @@ import owu.restaurant2back.models.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 
@@ -22,6 +25,13 @@ public class RestaurantService {
 
     @Autowired
     private UserDAO userDAO;
+
+    //    String pathToLogoFolder = System.getProperty("user.home") + File.separator + "Restaurant_Project"
+//            + File.separator + "Logo" + File.separator;
+    private String pathToLogoFolder = "D:" + File.separator + "Okten" + File.separator +
+            "Project" + File.separator + "restaurant2-front" + File.separator +
+            "src" + File.separator + "assets" + File.separator + "img" + File.separator;
+
 
     //     The same owner can add restaurants with the same names, but then their addresses must be different
     //     (for example, a restaurant chain).
@@ -94,14 +104,8 @@ public class RestaurantService {
     }
 
     public String saveLogo(int ownerId, int restId, MultipartFile logo) {
-//        String pathToFolder = System.getProperty("user.home") + File.separator + "Restaurant_Project"
-//                + File.separator + "Logo" + File.separator;
-        String pathToFolder = "D:" + File.separator + "Okten" + File.separator +
-                "Project" + File.separator + "restaurant2-front" + File.separator +
-                "src" + File.separator + "assets" + File.separator + "img" + File.separator;
-
         try {
-            logo.transferTo(new File(pathToFolder + ownerId + "_" + restId + "_" +
+            logo.transferTo(new File(pathToLogoFolder + ownerId + "_" + restId + "_" +
                     logo.getOriginalFilename()));
             Restaurant restaurant = restaurantDAO.findById(restId);
             restaurant.setLogo(ownerId + "_" + restId + "_" + logo.getOriginalFilename());
@@ -110,6 +114,18 @@ public class RestaurantService {
         } catch (IOException e) {
 //            e.printStackTrace();
             return "ERROR: failed to save the logo";
+        }
+    }
+
+    public String changeLogo(int ownerId, int restId, MultipartFile logo) {
+        String oldLogo = restaurantDAO.findById(restId).getLogo();
+        Path path = FileSystems.getDefault().getPath(pathToLogoFolder + oldLogo);
+        try {
+            Files.delete(path);
+            return saveLogo(ownerId, restId, logo);
+        } catch (IOException e) {
+//            e.printStackTrace();
+            return "ERROR: failed to delete the logo";
         }
     }
 
@@ -150,7 +166,7 @@ public class RestaurantService {
         for (Restaurant r : allRestaurants) {
             if (r.getName().equals(newName) && r.getAddress().equals(newAddress)) {
                 return new ResponseMessage("ERROR: The other owner has already registered a restaurant with " +
-                "a such name at this address");
+                        "a such name at this address");
             }
         }
         restForUpdate.setName(newName);

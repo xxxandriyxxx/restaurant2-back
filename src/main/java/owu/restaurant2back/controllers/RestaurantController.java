@@ -59,7 +59,7 @@ public class RestaurantController {
     public ResponseMessage changeLogo(@PathVariable int id,
                                       @RequestParam("logo") MultipartFile logo) {
         int ownerId = restaurantService.findById(id).getOwner().getId();
-        return new ResponseMessage(restaurantService.saveLogo(ownerId, id, logo));
+        return new ResponseMessage(restaurantService.changeLogo(ownerId, id, logo));
     }
 
 
