@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("user = " + user.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.save(user);
-        System.out.println(emailService.confirmAfterSave(user.getEmail()));
+//        System.out.println(emailService.confirmAfterSave(user.getEmail())); // uncomment it and change isEnable in User class
         return new ResponseMessage("You have been registered. " +
                 "A confirmation letter was sent to your email address. " +
                 "Please, follow the instruction in the letter to activate your account.");
@@ -117,9 +117,9 @@ public class UserServiceImpl implements UserService {
             return new ResponseMessage("Your account data have been updated");
         } else {
             userForUpdate.setEmail(basicData.getEmail());
-            userForUpdate.setEnabled(false);
+//            userForUpdate.setEnabled(false); // uncomment it and change isEnable in User class
             userDAO.save(userForUpdate);
-            System.out.println(emailService.confirmAfterUpdate(userForUpdate.getEmail()));
+//            System.out.println(emailService.confirmAfterUpdate(userForUpdate.getEmail())); // uncomment it and change isEnable in User class
             return new ResponseMessage("Your account data have been updated. " +
                     "A confirmation letter was sent to your new email address. " +
                     "Follow the instruction in the letter to activate your account.");
