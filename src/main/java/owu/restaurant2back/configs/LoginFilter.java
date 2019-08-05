@@ -13,7 +13,6 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import owu.restaurant2back.models.AccountCredentials;
 import owu.restaurant2back.models.User;
-import owu.restaurant2back.services.impl.UserServiceImpl;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -58,7 +57,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         // then  get default method getAuthenticationManager()
         // and set Authentication object based on data from creds object
 
-        // if auth process if success we jump to line 65 successfulAuthentication()
+        // if auth process if success we jump to successfulAuthentication()
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         creds.getUsername(),
@@ -90,14 +89,10 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         if (auth.getName().equals("admin")) {
             res.addHeader("UserClass", "AdminInMemory");
             res.addHeader("UserId", "0");
-
-//            res.addHeader("UserLogged", "AdminInMemory");
         } else {
             User userLogged = (User) userDetailsService.loadUserByUsername(auth.getName());
             res.addHeader("UserClass", userLogged.getClass().getSimpleName());
             res.addHeader("UserId", Integer.toString(userLogged.getId()));
-
-//            res.addHeader("UserLogged", new ObjectMapper().writeValueAsString(userLogged));
         }
 
     }
