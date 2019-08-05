@@ -1,13 +1,8 @@
 package owu.restaurant2back.models;
 
-//import lombok.Getter;
-//import lombok.Setter;
-//import lombok.AccessLevel;
-//import lombok.experimental.FieldDefaults;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +13,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "Users")
-//@Getter
-//@Setter
-//@FieldDefaults(level = AccessLevel.PRIVATE)
-//@ToString(exclude = {"orders"})
 @NoArgsConstructor
 @Inheritance
 @DiscriminatorColumn(name = "type")
@@ -42,7 +33,7 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true; // change to false and uncomment sending email in the user service
+    private boolean isEnabled = false; //
     @JsonIgnore
     @OneToMany(mappedBy = "user",
             fetch = FetchType.LAZY,

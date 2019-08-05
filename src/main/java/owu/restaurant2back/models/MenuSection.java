@@ -30,8 +30,5 @@ public class MenuSection {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     List<Dish> dishes = new ArrayList<>();
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    List<Dish> dishes = new ArrayList<>();
 
 }

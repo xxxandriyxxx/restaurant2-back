@@ -42,10 +42,6 @@ public class Restaurant {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     List<Dish> dishes = new ArrayList<>();
-    //    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    List<Dish> dishes = new ArrayList<>();
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant",
             fetch = FetchType.LAZY,

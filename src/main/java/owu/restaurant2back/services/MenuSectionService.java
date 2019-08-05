@@ -47,12 +47,6 @@ public class MenuSectionService {
     }
 
     public ResponseMessage deleteById(int id){
-//        MenuSection menuSection = menuSectionDAO.findById(id);
-//        Restaurant restaurant = menuSection.getRestaurant();
-//        List<MenuSection> menuSections = restaurant.getMenuSections();
-//        menuSections.remove(menuSection);
-//        restaurant.setMenuSections(menuSections);
-//        menuSectionDAO.delete(menuSection);
         menuSectionDAO.deleteById(id);
         return new ResponseMessage("The menu section has been deleted");
     }

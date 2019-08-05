@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class AccountCredentials {
     private String username;
     private String password;
-    private String email;  //never used
+    private String email;
 
 }

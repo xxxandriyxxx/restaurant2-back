@@ -27,7 +27,6 @@ public class OrderService {
         order.setUser(userDAO.findById(userId));
         order.setUsername(userDAO.findById(userId).getUsername());
         order.setRestaurant(restaurantDAO.findById(restaurantId));
-//        order.setStatus(OrderStatus.ORDERED);
         orderDAO.save(order);
         return new ResponseMessage("The order was sent for processing");
     }

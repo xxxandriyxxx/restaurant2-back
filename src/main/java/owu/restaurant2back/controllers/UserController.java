@@ -19,14 +19,12 @@ public class UserController {
 
     @PostMapping("/save/client")
     public ResponseMessage saveClient(@RequestBody Client client) {
-//        client.setPassword(passwordEncoder.encode(client.getPassword()));
         return userService.save(client);
     }
 
 
     @PostMapping("/save/owner")
     public ResponseMessage saveOwner(@RequestBody Owner owner) {
-//        owner.setPassword(passwordEncoder.encode(owner.getPassword()));
         return userService.save(owner);
     }
 
@@ -58,7 +56,6 @@ public class UserController {
         if (res.getStatusCode() >= 200 && res.getStatusCode() < 400) {
             response.addHeader("Authorization", res.getHeader("Authorization"));
             response.addHeader("UserClass", res.getHeader("UserClass"));
-//            response.addHeader("UserLogged", res.getHeader("UserLogged"));
             response.addHeader("UserId", res.getHeader("UserId"));
 
             response.addHeader("LoginStatusCode", Integer.toString(res.getStatusCode()));

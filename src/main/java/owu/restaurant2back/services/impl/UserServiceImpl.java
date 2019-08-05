@@ -117,9 +117,9 @@ public class UserServiceImpl implements UserService {
             return new ResponseMessage("Your account data have been updated");
         } else {
             userForUpdate.setEmail(basicData.getEmail());
-//            userForUpdate.setEnabled(false); // uncomment it and change isEnable in User class
+            userForUpdate.setEnabled(false); //
             userDAO.save(userForUpdate);
-//            System.out.println(emailService.confirmAfterUpdate(userForUpdate.getEmail())); // uncomment it and change isEnable in User class
+            System.out.println(emailService.confirmAfterUpdate(userForUpdate.getEmail())); //
             return new ResponseMessage("Your account data have been updated. " +
                     "A confirmation letter was sent to your new email address. " +
                     "Follow the instruction in the letter to activate your account.");

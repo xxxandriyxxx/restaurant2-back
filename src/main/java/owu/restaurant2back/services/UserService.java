@@ -25,6 +25,5 @@ public interface UserService extends UserDetailsService {
 
     ResponseMessage update(int id, BasicData basicData);
 
-//    UserDetails loadUserByUsername(String username);
 
 }

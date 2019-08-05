@@ -54,37 +54,6 @@ public class RestaurantService {
         }
     }
 
-    //    change including logo
-//    public ResponseMessage change(String restaurant, MultipartFile logo) throws IOException {
-//        Restaurant rest = new ObjectMapper().readValue(restaurant, Restaurant.class);
-//        Restaurant restForUpdate = restaurantDAO.findById(rest.getId());
-//        String newName = rest.getName();
-//        String newAddress = rest.getAddress();
-//        int ownerId = restForUpdate.getOwner().getId();
-//        List<Restaurant> myRestaurants = restaurantDAO.findByOwnerId(ownerId);
-//        List<Restaurant> allRestaurants = restaurantDAO.findAll();
-//        myRestaurants.remove(restForUpdate);
-//        allRestaurants.remove(restForUpdate);
-//        for (Restaurant r : myRestaurants) {
-//            if (r.getName().equals(newName) && r.getAddress().equals(newAddress)) {
-//                return new ResponseMessage("ERROR: You already have a restaurant with such name at this address");
-//            }
-//        }
-//        for (Restaurant r : allRestaurants) {
-//            if (r.getName().equals(newName) && r.getAddress().equals(newAddress)) {
-//                return new ResponseMessage("ERROR: Another owner has already registered a restaurant with such name " +
-//                        "at this address");
-//            }
-//        }
-//        restForUpdate.setName(newName);
-//        restForUpdate.setAddress(newAddress);
-//        restForUpdate.setAbout(rest.getAbout());
-//        restForUpdate.setPhoneNumber(rest.getPhoneNumber());
-//        restaurantDAO.save(restForUpdate);
-//        return new ResponseMessage("SUCCESS: The restaurant has been changed\n" +
-//                saveLogo(ownerId, restForUpdate.getId(), logo));
-//    }
-
 
     public Restaurant findById(int id) {
         return restaurantDAO.findById(id);
@@ -129,22 +98,6 @@ public class RestaurantService {
         }
     }
 
-
-    //    public ResponseMessage save(Restaurant restaurant) {
-//        int ownerId = restaurant.getOwner().getId();
-//        String name = restaurant.getName();
-//        String address = restaurant.getAddress();
-//
-//        if (restaurantDAO.existsByNameAndAddressAndOwnerId(name, address, ownerId)) {
-//            return new ResponseMessage("ERROR: You already have a restaurant with such name at this address");
-//        } else if (restaurantDAO.existsByNameAndAddress(name, address)) {
-//            return new ResponseMessage("ERROR: Another owner has already registered a restaurant with such" +
-//                    " name at this address");
-//        } else {
-//            restaurantDAO.save(restaurant);
-//            return new ResponseMessage("SUCCESS: The restaurant has been added");
-//        }
-//    }
 
     // change except logo
     public ResponseMessage change(Restaurant rest) {

@@ -60,38 +60,5 @@ public class DishService {
     }
 
 
-
-//        public ResponseMessage save(int restaurantId, int sectionId, Dish newDish) {
-//        Restaurant restaurant = restaurantDAO.findById(restaurantId);
-//        MenuSection section = menuSectionDAO.findById(sectionId);
-//
-//        for (Dish d : restaurant.getDishes()) {
-//            if (d.getName().equals(newDish.getName())) {
-//                return new ResponseMessage("ERROR: You already have a dish with such name in this restaurant");
-//            }
-//        }
-//        List<Dish> restDishes = restaurant.getDishes();
-//        restDishes.add(newDish);
-//        restaurant.setDishes(restDishes);
-//
-//        List<Dish> sectDishes = section.getDishes();
-//        sectDishes.add(newDish);
-//        section.setDishes(sectDishes);
-//
-//        List<Restaurant> rest = new ArrayList<>();
-//        rest.add(restaurant);
-//        newDish.setRestaurants(rest);
-//
-//        List<MenuSection> sect = new ArrayList<>();
-//        sect.add(section);
-//        newDish.setMenuSections(sect);
-//
-//        restaurantDAO.save(restaurant);
-//        menuSectionDAO.save(section);
-//        dishDAO.save(newDish);
-//
-//        return new ResponseMessage("SUCCESS: The dish has been added");
-//    }
-
 }
 

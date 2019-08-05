@@ -41,13 +41,4 @@ public class Order {
     List<Dish> dishes = new ArrayList<>();
     int[] amount;
 
-//    public Order(Date date, OrderStatus status, User user, Restaurant restaurant, List<Dish> dishes, int[] amount) {
-//        this.date = date;
-//        this.status = status;
-//        this.user = user;
-//        this.restaurant = restaurant;
-//        this.dishes = dishes;
-//        this.username = user.getUsername();
-//        this.amount = amount;
-//    }
 }

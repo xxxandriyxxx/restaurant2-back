@@ -34,21 +34,8 @@ public class RestaurantController {
         return restaurantService.save(ownerId, restaurant, logo);
     }
 
-    // change including logo
-//    @PostMapping("/changeRestaurant")
-//    public ResponseMessage changeRestaurant(@RequestParam("restaurant") String restaurant,
-//                                            @RequestParam("logo") MultipartFile logo) throws IOException {
-//        return restaurantService.change(restaurant, logo);
-//    }
 
-    //    @PostMapping("/addRestaurant/{ownerId}")
-//    public ResponseMessage addRestaurant(@PathVariable int ownerId,
-//                                         @RequestBody Restaurant restaurant) {
-//        restaurant.setOwner((Owner) userService.findById(ownerId));
-//        return restaurantService.save(restaurant);
-//    }
 
-    // change except logo
     @PostMapping("/restaurant/change")
     public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
         return restaurantService.change(restaurant);
