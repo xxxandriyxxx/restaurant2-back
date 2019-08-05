@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("user = " + user.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.save(user);
-//        System.out.println(emailService.confirmAfterSave(user.getEmail())); // uncomment it and change isEnable in User class
+        System.out.println(emailService.confirmAfterSave(user.getEmail())); //
         return new ResponseMessage("You have been registered. " +
                 "A confirmation letter was sent to your email address. " +
                 "Please, follow the instruction in the letter to activate your account.");
