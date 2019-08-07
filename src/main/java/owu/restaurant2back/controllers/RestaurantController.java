@@ -31,6 +31,7 @@ public class RestaurantController {
     public ResponseMessage addRestaurant(@PathVariable int ownerId,
                                          @RequestParam("restaurant") String restaurant,
                                          @RequestParam("logo") MultipartFile logo) throws IOException {
+        System.out.println("rest=" + restaurant);
         return restaurantService.save(ownerId, restaurant, logo);
     }
 

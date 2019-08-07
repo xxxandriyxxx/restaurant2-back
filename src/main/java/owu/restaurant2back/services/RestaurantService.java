@@ -26,11 +26,11 @@ public class RestaurantService {
     @Autowired
     private UserDAO userDAO;
 
-    //    String pathToLogoFolder = System.getProperty("user.home") + File.separator + "Restaurant_Project"
-//            + File.separator + "Logo" + File.separator;
-    private String pathToLogoFolder = "D:" + File.separator + "Okten" + File.separator +
-            "Project" + File.separator + "restaurant2-front" + File.separator +
-            "src" + File.separator + "assets" + File.separator + "img" + File.separator;
+    private String pathToLogoFolder = System.getProperty("user.home") + File.separator + "Restaurant_Project"
+            + File.separator + "Logo" + File.separator;
+//    private String pathToLogoFolder = "D:" + File.separator + "Okten" + File.separator +
+//            "Project" + File.separator + "restaurant2-front" + File.separator +
+//            "src" + File.separator + "assets" + File.separator + "img" + File.separator;
 
 
     //     The same owner can add restaurants with the same names, but then their addresses must be different
@@ -41,6 +41,8 @@ public class RestaurantService {
         newRestaurant.setOwner((Owner) userDAO.findById(ownerId));
         String name = newRestaurant.getName();
         String address = newRestaurant.getAddress();
+        System.out.println(name);
+        System.out.println(address);
 
         if (restaurantDAO.existsByNameAndAddressAndOwnerId(name, address, ownerId)) {
             return new ResponseMessage("ERROR: You already have a restaurant with a such name at this address");

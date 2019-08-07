@@ -15,6 +15,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/logo/**").addResourceLocations("file:///" + pathToFolder);
     }
 
-
-
 }
