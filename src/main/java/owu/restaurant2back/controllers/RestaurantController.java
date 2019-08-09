@@ -14,6 +14,7 @@ import owu.restaurant2back.services.RestaurantService;
 import java.io.IOException;
 import java.util.List;
 
+//@CrossOrigin(origins = "*")
 @RestController
 public class RestaurantController {
 
@@ -59,6 +60,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/get")
     public List<Restaurant> getAllRestaurants() {
+        System.out.println("getRestaurants mapping works");
         return restaurantService.findAll();
     }
 

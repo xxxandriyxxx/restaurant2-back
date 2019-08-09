@@ -28,6 +28,7 @@ public class RestaurantService {
 
     private String pathToLogoFolder = System.getProperty("user.home") + File.separator + "Restaurant_Project"
             + File.separator + "Logo" + File.separator;
+
 //    private String pathToLogoFolder = "D:" + File.separator + "Okten" + File.separator +
 //            "Project" + File.separator + "restaurant2-front" + File.separator +
 //            "src" + File.separator + "assets" + File.separator + "img" + File.separator;
@@ -66,6 +67,7 @@ public class RestaurantService {
     }
 
     public List<Restaurant> findAll() {
+        System.out.println("findAllRestaurants service works");
         return restaurantDAO.findAll();
     }
 

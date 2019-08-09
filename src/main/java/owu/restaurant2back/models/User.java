@@ -33,7 +33,11 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = false; //
+
+    //if you want to cancel sending a message to confirm user email for enabling his account,
+    // set it true and comment sending an email in user service in save and update methods
+    private boolean isEnabled = false;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user",
             fetch = FetchType.LAZY,

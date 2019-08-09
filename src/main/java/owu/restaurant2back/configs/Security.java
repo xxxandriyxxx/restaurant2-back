@@ -57,10 +57,13 @@ public class Security extends WebSecurityConfigurerAdapter {
 
 
 
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // allows to ask our server from this url
+//        configuration.setAllowedOrigins(Arrays.asList("http://ec2-18-222-250-152.us-east-2.compute.amazonaws.com:8080",
+//                "http://localhost:4200")); // allows to ask our server from these urls
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.addAllowedHeader("*");
         configuration.setAllowedMethods(Arrays.asList(
                 HttpMethod.GET.name(),

@@ -25,13 +25,18 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender javaMailSender;
 
+    String url = "http://localhost:4200";
+
+//    used for deploying the project on AWS
+//    String url = "http://ec2-18-218-56-240.us-east-2.compute.amazonaws.com:8080";
+
 
     private String messageAfterSave = "Hello! <br> " +
-            "You are registered on the site <a href = 'http://localhost:4200'>http://localhost:4200</a> <br>" +
+            "You are registered on the site <a href = '" + url + "'>Restaurants</a> <br>" +
             "Please, activate your account by following the link: <br>";
 
     private String messageAfterUpdate = "Hello! <br> " +
-            "You are registered on the site <a href = 'http://localhost:4200'>http://localhost:4200</a> <br>" +
+            "You are registered on the site <a href = '" + url + "'>Restaurants</a> <br>" +
             "Your email address has been updated. <br>" +
             "Please, activate your account by following the link: <br>";
 
@@ -64,7 +69,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             mimeMessage.setFrom(new InternetAddress(env.getProperty("spring.mail.username")));
             helper.setTo(email);
-            helper.setText(message + "http://localhost:4200/activation/" + token, true);
+            helper.setText(message + url + "/activation/" + token, true);
             helper.setSubject("ACCOUNT ACTIVATION");
         } catch (MessagingException e) {
             e.printStackTrace();

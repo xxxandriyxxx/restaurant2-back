@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import owu.restaurant2back.models.*;
 import owu.restaurant2back.services.*;
+
 import javax.servlet.http.HttpServletResponse;
 
-
+//@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 
@@ -25,6 +26,7 @@ public class UserController {
 
     @PostMapping("/save/owner")
     public ResponseMessage saveOwner(@RequestBody Owner owner) {
+        System.out.println("saveOwner mapping works");
         return userService.save(owner);
     }
 
@@ -75,19 +77,9 @@ public class UserController {
 
     @PostMapping("/user/update/{id}")
     public ResponseMessage updateUserById(@PathVariable int id,
-                                         @RequestBody BasicData basicData) {
+                                          @RequestBody BasicData basicData) {
         return userService.update(id, basicData);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -69,7 +69,7 @@ module.exports = "\r\n#signInMessage {\r\n  margin-left: 0;\r\n  margin-right: 0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"navbar\">\r\n  <a routerLink=\"/\">Home</a>\r\n  <div *ngIf=\"logged;else signInUp\">\r\n    <a *ngIf=\"userClass == 'Owner'\" routerLink=\"myRestaurants\">My restaurants</a>\r\n    <a *ngIf=\"userClass !== 'AdminInMemory'\" routerLink=\"orders/my\">My orders</a>\r\n    <a *ngIf=\"userClass == 'Owner'\" routerLink=\"orders/clients\">Clients' orders</a>\r\n    <a class=\"right\" (click)=\"logout()\">Log out</a>\r\n    <a *ngIf=\"(userClass == 'Owner')||(userClass == 'Client')\" class=\"right\" routerLink=\"myAccount\">My account</a>\r\n    <a *ngIf=\"userClass == 'AdminInMemory'\" class=\"right\" routerLink=\"admin\">Admin page</a>\r\n  </div>\r\n  <ng-template #signInUp>\r\n    <a class=\"right\" routerLink=\"/sign-up\">Sigh up</a>\r\n    <a class=\"right\" routerLink=\"/sign-in\">Sigh in</a>\r\n  </ng-template>\r\n\r\n  <img id=\"dishes-img\" src=\"../assets/img/dishes3.png\" alt=\"dishes\">\r\n</div>\r\n\r\n\r\n<div class=\"main\">\r\n<router-outlet>\r\n\r\n</router-outlet>\r\n</div>\r\n\r\n\r\n<div id=\"modalMessage\" class=\"modal\">\r\n  <div class=\"modal-response\">\r\n    <span class=\"close-modal\" (click)=\"closeModal()\">&times;</span>\r\n    <div>\r\n      <h3>Server response</h3>\r\n      <hr>\r\n      <p>{{responseMessage}}</p>\r\n    </div>\r\n    <button (click)=\"closeModal()\">Close</button>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"navbar\">\r\n  <a routerLink=\"/\">Home</a>\r\n  <div *ngIf=\"logged;else signInUp\">\r\n    <a *ngIf=\"userClass == 'Owner'\" routerLink=\"myRestaurants\">My restaurants</a>\r\n    <a *ngIf=\"userClass !== 'AdminInMemory'\" routerLink=\"orders/my\">My orders</a>\r\n    <a *ngIf=\"userClass == 'Owner'\" routerLink=\"orders/clients\">Clients' orders</a>\r\n    <a class=\"right\" (click)=\"logout()\">Sign out</a>\r\n    <a *ngIf=\"(userClass == 'Owner')||(userClass == 'Client')\" class=\"right\" routerLink=\"myAccount\">My account</a>\r\n    <a *ngIf=\"userClass == 'AdminInMemory'\" class=\"right\" routerLink=\"admin\">Admin page</a>\r\n  </div>\r\n  <ng-template #signInUp>\r\n    <a class=\"right\" routerLink=\"/sign-up\">Sign up</a>\r\n    <a class=\"right\" routerLink=\"/sign-in\">Sign in</a>\r\n  </ng-template>\r\n\r\n  <img id=\"dishes-img\" src=\"../assets/img/dishes3.png\" alt=\"dishes\">\r\n</div>\r\n\r\n\r\n<div class=\"main\">\r\n<router-outlet>\r\n\r\n</router-outlet>\r\n</div>\r\n\r\n\r\n<div id=\"modalMessage\" class=\"modal\">\r\n  <div class=\"modal-response\">\r\n    <span class=\"close-modal\" (click)=\"closeModal()\">&times;</span>\r\n    <div>\r\n      <h3>Server response</h3>\r\n      <hr>\r\n      <p>{{responseMessage}}</p>\r\n    </div>\r\n    <button (click)=\"closeModal()\">Close</button>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -649,7 +649,7 @@ module.exports = "body{\r\n  min-height: 100vh;\r\n  /*background: lightgoldenro
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<body>\r\n\r\n<div class=\"restaurant\" *ngFor=\"let rest of restaurants\">\r\n  <div class=\"grid\">\r\n    <div class=\"logo-wrap\"><img class=\"logo\" src=\"logo/{{rest.logo}}\" alt=\"logo\"></div>\r\n    <div class=\"details\">\r\n      <div class=\"name\">\r\n        <div><span class=\"bold-color\">{{rest.name}}</span></div>\r\n        <button class=\"menu-btn\" (click)=\"goToRestaurant(rest.id, rest.name)\">Menu</button>\r\n      </div>\r\n      <div><span class=\"bold\">Address: </span>{{rest.address}}</div>\r\n      <div><span class=\"bold\">Phone: </span>{{rest.phoneNumber}}</div>\r\n      <div><span class=\"bold\">Site: </span><a href=\"https://{{rest.site}}\" target=\"_blank\">{{rest.site}}</a></div>\r\n      <div>{{rest.about}}</div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n</body>\r\n"
+module.exports = "<body>\r\n\r\n<div class=\"restaurant\" *ngFor=\"let rest of restaurants\">\r\n  <div class=\"grid\">\r\n\r\n    <div class=\"logo-wrap\"><img class=\"logo\" src=\"{{dataService.pathToResources}}/{{rest.logo}}\" alt=\"logo\"></div>\r\n\r\n    <div class=\"details\">\r\n      <div class=\"name\">\r\n        <div><span class=\"bold-color\">{{rest.name}}</span></div>\r\n        <button class=\"menu-btn\" (click)=\"goToRestaurant(rest.id, rest.name)\">Menu</button>\r\n      </div>\r\n      <div><span class=\"bold\">Address: </span>{{rest.address}}</div>\r\n      <div><span class=\"bold\">Phone: </span>{{rest.phoneNumber}}</div>\r\n      <div><span class=\"bold\">Site: </span><a href=\"https://{{rest.site}}\" target=\"_blank\">{{rest.site}}</a></div>\r\n      <div>{{rest.about}}</div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n</body>\r\n"
 
 /***/ }),
 
@@ -667,14 +667,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_main_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/main.service */ "./src/app/services/main.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/data.service */ "./src/app/services/data.service.ts");
+
 
 
 
 
 var RestaurantsComponent = /** @class */ (function () {
-    function RestaurantsComponent(mainService, router) {
+    function RestaurantsComponent(mainService, router, dataService) {
         this.mainService = mainService;
         this.router = router;
+        this.dataService = dataService;
         // showSigInMessage = false;
         this.restaurants = [];
     }
@@ -701,7 +704,8 @@ var RestaurantsComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./restaurants.component.css */ "./src/app/modules/restaurants/restaurants/restaurants.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_main_service__WEBPACK_IMPORTED_MODULE_2__["MainService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _services_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"]])
     ], RestaurantsComponent);
     return RestaurantsComponent;
 }());
@@ -1007,7 +1011,7 @@ module.exports = "/*used styles from signup-page.component*/\r\n\r\n/*# sourceMa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<form #signInForm='ngForm' class=\"form\">\r\n  <h2>Sign in</h2>\r\n  <p>Please fill in this form to sign in.</p>\r\n  <hr>\r\n\r\n  <label><b>Login or email:</b></label>\r\n  <input\r\n    [(ngModel)]=\"logForm.loginEmail\"\r\n    [ngStyle]=\"{border: usernameInp.invalid && usernameInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #usernameInp='ngModel'\r\n    required pattern=\"({{dataService.passLoginRegExp.source}})|({{dataService.emailRegExp.source}})\"\r\n    placeholder=\"login / email\"\r\n    size=\"25\"\r\n    type=\"text\"\r\n    name=\"username\"\r\n    autocomplete=\"off\">\r\n  <label><b>Password:</b></label>\r\n  <input\r\n    [(ngModel)]=\"logForm.password\"\r\n    [ngStyle]=\"{border: passwordInp.invalid && passwordInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #passwordInp='ngModel'\r\n    required pattern=\"{{dataService.passLoginRegExp.source}}\"\r\n    placeholder=\"password\"\r\n    size=\"25\"\r\n    type=\"password\"\r\n    name=\"password\">\r\n  <button\r\n    [disabled]=\"signInForm.invalid\"\r\n    (click)=\"login()\"\r\n  >Sign in\r\n  </button>\r\n</form>\r\n\r\n\r\n"
+module.exports = "\r\n<form #signInForm='ngForm' class=\"form\">\r\n  <h2>Sign in</h2>\r\n  <p>Please, fill in this form to sign in.</p>\r\n  <hr>\r\n\r\n  <label><b>Login or email:</b></label>\r\n  <input\r\n    [(ngModel)]=\"logForm.loginEmail\"\r\n    [ngStyle]=\"{border: usernameInp.invalid && usernameInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #usernameInp='ngModel'\r\n    required pattern=\"({{dataService.passLoginRegExp.source}})|({{dataService.emailRegExp.source}})\"\r\n    placeholder=\"login / email\"\r\n    size=\"25\"\r\n    type=\"text\"\r\n    name=\"username\"\r\n    autocomplete=\"off\">\r\n  <label><b>Password:</b></label>\r\n  <input\r\n    [(ngModel)]=\"logForm.password\"\r\n    [ngStyle]=\"{border: passwordInp.invalid && passwordInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #passwordInp='ngModel'\r\n    required pattern=\"{{dataService.passLoginRegExp.source}}\"\r\n    placeholder=\"password\"\r\n    size=\"25\"\r\n    type=\"password\"\r\n    name=\"password\">\r\n  <button\r\n    [disabled]=\"signInForm.invalid\"\r\n    (click)=\"login()\"\r\n  >Sign in\r\n  </button>\r\n</form>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1165,7 +1169,7 @@ module.exports = "* {\r\n  box-sizing: border-box\r\n}\r\n\r\n\r\n.form {\r\n  p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<form #signUpForm='ngForm' class=\"form\">\r\n  <h2>Sign up</h2>\r\n  <p>Please fill in this form to create an account.</p>\r\n  <hr>\r\n\r\n  <label><b>Type of user:</b></label>\r\n  <div>\r\n    <div>\r\n      <input #clientRadio type=\"radio\" name=\"type\" value=\"client\" checked> client\r\n    </div>\r\n    <div>\r\n      <input #ownerRadio type=\"radio\" name=\"type\" value=\"owner\"> owner\r\n    </div>\r\n  </div>\r\n\r\n  <label><b>Login:</b></label>\r\n  <input\r\n    [(ngModel)]=\"regForm.username\"\r\n    [ngStyle]=\"{border: usernameInp.invalid && usernameInp.dirty ? '2px solid red' : '2px solid green'}\"\r\n    #usernameInp='ngModel'\r\n    required pattern=\"{{dataService.passLoginRegExp.source}}\"\r\n    placeholder=\"3-20 latin letters/numbers\"\r\n    size=\"25\"\r\n    type=\"text\"\r\n    name=\"username\"\r\n    autocomplete=\"off\">\r\n  <label><b>Email:</b></label>\r\n  <input\r\n    [(ngModel)]=\"regForm.email\"\r\n    [ngStyle]=\"{border: emailInp.invalid && emailInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #emailInp='ngModel'\r\n    required pattern=\"{{dataService.emailRegExp.source}}\"\r\n    placeholder=\"email\"\r\n    size=\"25\"\r\n    type=\"text\"\r\n    name=\"email\"\r\n    autocomplete=\"off\">\r\n  <label><b>Password:</b></label>\r\n  <input\r\n    [(ngModel)]=\"regForm.password\"\r\n    [ngStyle]=\"{border: passwordInp.invalid && passwordInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #passwordInp='ngModel'\r\n    required pattern=\"{{dataService.passLoginRegExp.source}}\"\r\n    placeholder=\"3-20 latin letters/numbers\"\r\n    size=\"25\"\r\n    type=\"password\"\r\n    name=\"password\">\r\n  <button\r\n    [disabled]=\"signUpForm.invalid\"\r\n    (click)=\"saveUser(clientRadio.checked, ownerRadio.checked)\"\r\n  >Sign up\r\n  </button>\r\n</form>\r\n\r\n"
+module.exports = "\r\n<form #signUpForm='ngForm' class=\"form\">\r\n  <h2>Sign up</h2>\r\n  <p>Please, fill in this form to create an account.</p>\r\n  <hr>\r\n\r\n  <label><b>Type of user:</b></label>\r\n  <div>\r\n    <div>\r\n      <input #clientRadio type=\"radio\" name=\"type\" value=\"client\" checked> client\r\n    </div>\r\n    <div>\r\n      <input #ownerRadio type=\"radio\" name=\"type\" value=\"owner\"> owner\r\n    </div>\r\n  </div>\r\n\r\n  <label><b>Login:</b></label>\r\n  <input\r\n    [(ngModel)]=\"regForm.username\"\r\n    [ngStyle]=\"{border: usernameInp.invalid && usernameInp.dirty ? '2px solid red' : '2px solid green'}\"\r\n    #usernameInp='ngModel'\r\n    required pattern=\"{{dataService.passLoginRegExp.source}}\"\r\n    placeholder=\"3-20 latin letters/numbers\"\r\n    size=\"25\"\r\n    type=\"text\"\r\n    name=\"username\"\r\n    autocomplete=\"off\">\r\n  <label><b>Email:</b></label>\r\n  <input\r\n    [(ngModel)]=\"regForm.email\"\r\n    [ngStyle]=\"{border: emailInp.invalid && emailInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #emailInp='ngModel'\r\n    required pattern=\"{{dataService.emailRegExp.source}}\"\r\n    placeholder=\"email\"\r\n    size=\"25\"\r\n    type=\"text\"\r\n    name=\"email\"\r\n    autocomplete=\"off\">\r\n  <label><b>Password:</b></label>\r\n  <input\r\n    [(ngModel)]=\"regForm.password\"\r\n    [ngStyle]=\"{border: passwordInp.invalid && passwordInp.dirty? '2px solid red' : '2px solid green'}\"\r\n    #passwordInp='ngModel'\r\n    required pattern=\"{{dataService.passLoginRegExp.source}}\"\r\n    placeholder=\"3-20 latin letters/numbers\"\r\n    size=\"25\"\r\n    type=\"password\"\r\n    name=\"password\">\r\n  <button\r\n    [disabled]=\"signUpForm.invalid\"\r\n    (click)=\"saveUser(clientRadio.checked, ownerRadio.checked)\"\r\n  >Sign up\r\n  </button>\r\n</form>\r\n\r\n"
 
 /***/ }),
 
@@ -1318,6 +1322,10 @@ var DataService = /** @class */ (function () {
         this.priceRegExp = new RegExp('^\\d+(\\.\\d{1,2})?$');
         this.siteRegExp = new RegExp('[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)');
         this.phoneRegExp = new RegExp('^\\+\\d{2}\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$');
+        // public pathToResources = '../../../../assets/img';
+        this.pathToResources = 'logo/'; // used for building angular project and deploy on AWS
+        // public url = 'http://localhost:8080';
+        this.url = 'http://ec2-18-218-56-240.us-east-2.compute.amazonaws.com:8080'; // used for building angular project and deploy on AWS
     }
     DataService.prototype.getAuthHeader = function () {
         return new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ Authorization: localStorage.getItem('_token') });
@@ -1359,7 +1367,7 @@ var MainService = /** @class */ (function () {
     function MainService(http, dataService) {
         this.http = http;
         this.dataService = dataService;
-        this.url = 'http://localhost:8080';
+        this.url = this.dataService.url;
     }
     MainService.prototype.saveClient = function (client) {
         return this.http.post(this.url + '/save/client', client);
