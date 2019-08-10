@@ -37,7 +37,6 @@ public class RestaurantController {
     }
 
 
-
     @PostMapping("/restaurant/change")
     public ResponseMessage changeRestaurant(@RequestBody Restaurant restaurant) {
         return restaurantService.change(restaurant);
@@ -60,7 +59,6 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/get")
     public List<Restaurant> getAllRestaurants() {
-        System.out.println("getRestaurants mapping works");
         return restaurantService.findAll();
     }
 

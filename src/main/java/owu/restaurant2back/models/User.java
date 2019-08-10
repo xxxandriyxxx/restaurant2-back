@@ -33,9 +33,6 @@ public class User implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-
-    //if you want to cancel sending a message to confirm user email for enabling his account,
-    // set it true and comment sending an email in user service in save and update methods
     private boolean isEnabled = false;
 
     @JsonIgnore

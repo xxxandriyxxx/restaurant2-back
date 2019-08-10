@@ -1317,15 +1317,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var DataService = /** @class */ (function () {
     function DataService() {
+        // URL for of the API
+        this.url = 'http://localhost:8080';
+        // public url = 'http://ec2-18-219-114-136.us-east-2.compute.amazonaws.com:8080';
+        // this resource location is set by the resource handler in the WebConfig class in the API project
+        this.pathToResources = this.url + '/logo';
         this.passLoginRegExp = new RegExp('^[a-zA-Z0-9]{3,20}$');
         this.emailRegExp = new RegExp('^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$');
         this.priceRegExp = new RegExp('^\\d+(\\.\\d{1,2})?$');
         this.siteRegExp = new RegExp('[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)');
         this.phoneRegExp = new RegExp('^\\+\\d{2}\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$');
-        // public pathToResources = '../../../../assets/img';
-        this.pathToResources = 'logo/'; // used for building angular project and deploy on AWS
-        // public url = 'http://localhost:8080';
-        this.url = 'http://ec2-18-218-56-240.us-east-2.compute.amazonaws.com:8080'; // used for building angular project and deploy on AWS
     }
     DataService.prototype.getAuthHeader = function () {
         return new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ Authorization: localStorage.getItem('_token') });

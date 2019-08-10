@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -27,6 +29,9 @@ import java.util.Arrays;
 public class Security extends WebSecurityConfigurerAdapter {
 
 
+    // to cancel sending a message to confirm user email for enabling his account, set this variable to false
+    // it used in UserServiceImpl class
+    public static final boolean requireConfirmEmail = true;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,9 +41,9 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/", "/save/client", "/save/owner", "/activation", "/activation/{jwt}",
-                        "/restaurants/get","/restaurant/menu-sections/get/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/login","/login/try").permitAll()
+                .antMatchers("/", "/sign-in", "/save/client", "/save/owner", "/activation", "/activation/{jwt}",
+                        "/restaurants/get", "/restaurant/menu-sections/get/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/login", "/login/try").permitAll()
 
                 .antMatchers("/*.ico").permitAll()
                 .antMatchers("/*.js").permitAll()
@@ -53,9 +58,6 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new RequestProcessingJWTFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new LoginFilter("/login", authenticationManager(), userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
-
-
-
 
 
     @Bean
@@ -117,6 +119,14 @@ public class Security extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(provider);
     }
     // back door ====================================================
+
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedSlash(true);
+        return firewall;
+    }
 
 
 }

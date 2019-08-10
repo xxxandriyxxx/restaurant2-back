@@ -8,8 +8,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import owu.restaurant2back.configs.WebConfig;
 import owu.restaurant2back.services.EmailService;
 
+import javax.jws.WebService;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -25,18 +27,12 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    String url = "http://localhost:4200";
-
-//    used for deploying the project on AWS
-//    String url = "http://ec2-18-218-56-240.us-east-2.compute.amazonaws.com:8080";
-
-
     private String messageAfterSave = "Hello! <br> " +
-            "You are registered on the site <a href = '" + url + "'>Restaurants</a> <br>" +
+            "You are registered on the site <a href = '" + WebConfig.url + "'>Restaurants</a> <br>" +
             "Please, activate your account by following the link: <br>";
 
     private String messageAfterUpdate = "Hello! <br> " +
-            "You are registered on the site <a href = '" + url + "'>Restaurants</a> <br>" +
+            "You are registered on the site <a href = '" + WebConfig.url + "'>Restaurants</a> <br>" +
             "Your email address has been updated. <br>" +
             "Please, activate your account by following the link: <br>";
 
@@ -69,7 +65,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             mimeMessage.setFrom(new InternetAddress(env.getProperty("spring.mail.username")));
             helper.setTo(email);
-            helper.setText(message + url + "/activation/" + token, true);
+            helper.setText(message + WebConfig.url + "/activation/" + token, true);
             helper.setSubject("ACCOUNT ACTIVATION");
         } catch (MessagingException e) {
             e.printStackTrace();

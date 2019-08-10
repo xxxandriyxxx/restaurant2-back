@@ -26,13 +26,12 @@ public class UserController {
 
     @PostMapping("/save/owner")
     public ResponseMessage saveOwner(@RequestBody Owner owner) {
-        System.out.println("saveOwner mapping works");
         return userService.save(owner);
     }
 
 
-    @PostMapping("/activation")
-    public ResponseMessage activation(@RequestBody ResponseMessage responseMessage) {
+    @PostMapping("/activation") //used when we send a request from localhost
+    public ResponseMessage activationByLocalhost(@RequestBody ResponseMessage responseMessage) {
         return userService.activation(responseMessage.getMessage());
     }
 
