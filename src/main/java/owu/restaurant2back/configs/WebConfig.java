@@ -13,8 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     // it used in EmailServiceImpl class
 //    public static final String url = "http://localhost:4200";
     public static final String url = "http://localhost:8080";
-
-//    public static final String url = "http://ec2-18-219-114-136.us-east-2.compute.amazonaws.com:8080";
+//    public static final String url = "http://ec2-52-15-125-215.us-east-2.compute.amazonaws.com:8080";
 
     // path to the logos of restaurants
     // it also used in RestaurantService class
