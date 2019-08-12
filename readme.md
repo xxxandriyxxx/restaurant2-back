@@ -1,6 +1,6 @@
 ## Restaurants back-end
 This is a Spring project "Restaurants". It also includes built angular project.
-It can run as an API or as a holistic project. By default, on http://localhost:8080.
+It can run as an API or as a holistic project. By default, on http://localhost:8080
 
 Using this app you can browse the list of registered restaurants, sign up as client, place orders, change the status of your orders.
 
