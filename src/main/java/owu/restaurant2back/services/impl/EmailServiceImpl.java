@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import owu.restaurant2back.configs.WebConfig;
 import owu.restaurant2back.services.EmailService;
 
-import javax.jws.WebService;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;

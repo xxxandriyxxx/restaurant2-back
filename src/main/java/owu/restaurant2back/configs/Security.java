@@ -31,7 +31,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     // to cancel sending a message to confirm user email for enabling his account, set this variable to false
     // it used in UserServiceImpl class
-    public static final boolean requireConfirmEmail = true;
+    public static final boolean requireConfirmEmail = false;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
