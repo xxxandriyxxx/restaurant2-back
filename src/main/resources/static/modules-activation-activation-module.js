@@ -18,7 +18,7 @@ module.exports = "body{\r\n  min-height: 100vh;\r\n  /*background: lightgoldenro
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<body>\r\n<div>\r\n  <h2 id=\"header\">\r\n    ACTIVATION\r\n  </h2>\r\n  <p *ngIf=\"activated;else otherP\">\r\n    Your account has been successfully activated ! <br>\r\n    To continue, sign in with the following link: <br>\r\n    <a href='http://localhost:4200/sign-in'>http://localhost:4200/sign-in</a>\r\n  </p>\r\n  <ng-template #otherP>\r\n    <p>\r\n      ERROR of activation !\r\n    </p>\r\n  </ng-template>\r\n</div>\r\n</body>\r\n"
+module.exports = "<body>\r\n<div>\r\n  <h2 id=\"header\">\r\n    ACTIVATION\r\n  </h2>\r\n  <p *ngIf=\"activated;else otherP\">\r\n    Your account has been successfully activated ! <br>\r\n    To continue, sign in with the following link: <br>\r\n    <a routerLink=\"/sign-in\">{{dataService.url}}/sign-in</a>\r\n  </p>\r\n  <ng-template #otherP>\r\n    <p>\r\n      ERROR of activation !\r\n    </p>\r\n  </ng-template>\r\n</div>\r\n</body>\r\n"
 
 /***/ }),
 
@@ -36,20 +36,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_main_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/main.service */ "./src/app/services/main.service.ts");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/data.service */ "./src/app/services/data.service.ts");
+
 
 
 
 
 var ActivationPageComponent = /** @class */ (function () {
-    function ActivationPageComponent(activatedRoute, mainService) {
+    function ActivationPageComponent(activatedRoute, mainService, dataService) {
         this.activatedRoute = activatedRoute;
         this.mainService = mainService;
+        this.dataService = dataService;
         this.activated = false;
     }
     ActivationPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            // console.log(params.jwt);
             _this.mainService.activation(params.jwt)
                 .subscribe(function (res) {
                 console.log(res);
@@ -68,7 +70,8 @@ var ActivationPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./activation-page.component.css */ "./src/app/modules/activation/activation-page/activation-page.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _services_main_service__WEBPACK_IMPORTED_MODULE_3__["MainService"]])
+            _services_main_service__WEBPACK_IMPORTED_MODULE_3__["MainService"],
+            _services_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"]])
     ], ActivationPageComponent);
     return ActivationPageComponent;
 }());

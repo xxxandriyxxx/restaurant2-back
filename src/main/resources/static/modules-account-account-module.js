@@ -141,7 +141,6 @@ var AccountComponent = /** @class */ (function () {
     }
     AccountComponent.prototype.ngOnInit = function () {
         this.loadData();
-        console.log(this.location.href);
     };
     AccountComponent.prototype.loadData = function () {
         var _this = this;
