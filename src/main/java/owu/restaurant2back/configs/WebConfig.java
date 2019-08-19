@@ -11,8 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     // URL of the running front-end project
     // it used in EmailServiceImpl class
-    public static final String url = "http://localhost:4200";
-//    public static final String url = "http://localhost:8080";
+//    public static final String url = "http://localhost:4200";
+    public static final String url = "http://localhost:8080";
 //    public static final String url = "http://ec2-18-217-248-193.us-east-2.compute.amazonaws.com:8080";
 
     // path to the logos of restaurants
