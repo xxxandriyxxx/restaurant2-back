@@ -39,7 +39,6 @@ public class Dish {
             cascade = {CascadeType.DETACH})
     List<Order> orders = new ArrayList<>();
 
-    //    --------------------------------------------
     @JsonIgnore
     @OneToOne(mappedBy = "dish",
             fetch = FetchType.LAZY,

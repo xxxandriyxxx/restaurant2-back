@@ -32,9 +32,6 @@ public class MenuSection {
             cascade = CascadeType.ALL)
     List<Dish> dishes = new ArrayList<>();
 
-
-
-//    ------------------------------------------
     @JsonIgnore
     @OneToOne(mappedBy = "menuSection",
             fetch = FetchType.LAZY,

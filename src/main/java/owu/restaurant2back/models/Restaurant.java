@@ -49,7 +49,6 @@ public class Restaurant {
             cascade = CascadeType.ALL)
     List<Order> orders = new ArrayList<>();
 
-    //    --------------------------------------------
     @JsonIgnore
     @OneToOne(mappedBy = "restaurant",
             fetch = FetchType.LAZY,

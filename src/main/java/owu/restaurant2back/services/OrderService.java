@@ -59,7 +59,6 @@ public class OrderService {
         return orders;
     }
 
-
     public List<Order> findByRestaurantId(int id) {
         return orderDAO.findByRestaurantId(id);
     }
