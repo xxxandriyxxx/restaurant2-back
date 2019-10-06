@@ -3,6 +3,7 @@ package owu.restaurant2back.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import owu.restaurant2back.models.statistics.DishStatistics;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,5 +38,12 @@ public class Dish {
             fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH})
     List<Order> orders = new ArrayList<>();
+
+    //    --------------------------------------------
+    @JsonIgnore
+    @OneToOne(mappedBy = "dish",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    DishStatistics dishStatistics;
 
 }

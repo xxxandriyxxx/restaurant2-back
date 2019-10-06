@@ -27,6 +27,9 @@ public class RestaurantService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private StatisticsService statisticsService;
+
     //     The same owner can add restaurants with the same names, but then their addresses must be different
     //     (for example, a restaurant chain).
     //     Different owners can have restaurants with the same names, but then their address must be different too.
@@ -44,6 +47,7 @@ public class RestaurantService {
                     "a such name at this address");
         } else {
             restaurantDAO.save(newRestaurant);
+            statisticsService.createRestaurantStatistics(newRestaurant);
             return new ResponseMessage("The restaurant has been added. " +
                     saveLogo(ownerId, newRestaurant.getId(), logo));
         }
@@ -125,6 +129,8 @@ public class RestaurantService {
         restaurantDAO.save(restForUpdate);
         return new ResponseMessage("The restaurant has been updated");
     }
+
+
 
 
 }

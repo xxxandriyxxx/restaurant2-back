@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "body{\r\n  min-height: 100vh;\r\n  /*background: lightgoldenrodyellow;*/\r\n  background: beige;\r\n  padding-top: 1px;\r\n}\r\n\r\ndiv{\r\n  width: 30%;\r\n  margin: 20px 35%;\r\n}\r\n\r\n#header{\r\n  margin: 20px 20%;\r\n  font-size: x-large;\r\n  font-weight: bold;\r\n  color: darkred;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kdWxlcy9hY3RpdmF0aW9uL2FjdGl2YXRpb24tcGFnZS9hY3RpdmF0aW9uLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQjtFQUNqQixvQ0FBb0M7RUFDcEMsaUJBQWlCO0VBQ2pCLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLFVBQVU7RUFDVixnQkFBZ0I7QUFDbEI7O0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLGlCQUFpQjtFQUNqQixjQUFjO0FBQ2hCIiwiZmlsZSI6InNyYy9hcHAvbW9kdWxlcy9hY3RpdmF0aW9uL2FjdGl2YXRpb24tcGFnZS9hY3RpdmF0aW9uLXBhZ2UuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHl7XHJcbiAgbWluLWhlaWdodDogMTAwdmg7XHJcbiAgLypiYWNrZ3JvdW5kOiBsaWdodGdvbGRlbnJvZHllbGxvdzsqL1xyXG4gIGJhY2tncm91bmQ6IGJlaWdlO1xyXG4gIHBhZGRpbmctdG9wOiAxcHg7XHJcbn1cclxuXHJcbmRpdntcclxuICB3aWR0aDogMzAlO1xyXG4gIG1hcmdpbjogMjBweCAzNSU7XHJcbn1cclxuXHJcbiNoZWFkZXJ7XHJcbiAgbWFyZ2luOiAyMHB4IDIwJTtcclxuICBmb250LXNpemU6IHgtbGFyZ2U7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgY29sb3I6IGRhcmtyZWQ7XHJcbn1cclxuIl19 */"
+module.exports = "body{\r\n  min-height: 100vh;\r\n  background: beige;\r\n  padding-top: 1px;\r\n}\r\n\r\ndiv{\r\n  width: 30%;\r\n  margin: 20px 35%;\r\n}\r\n\r\n#header{\r\n  margin: 20px 20%;\r\n  font-size: x-large;\r\n  font-weight: bold;\r\n  color: darkred;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kdWxlcy9hY3RpdmF0aW9uL2FjdGl2YXRpb24tcGFnZS9hY3RpdmF0aW9uLXBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7RUFDakIsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsVUFBVTtFQUNWLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFLGdCQUFnQjtFQUNoQixrQkFBa0I7RUFDbEIsaUJBQWlCO0VBQ2pCLGNBQWM7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9tb2R1bGVzL2FjdGl2YXRpb24vYWN0aXZhdGlvbi1wYWdlL2FjdGl2YXRpb24tcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keXtcclxuICBtaW4taGVpZ2h0OiAxMDB2aDtcclxuICBiYWNrZ3JvdW5kOiBiZWlnZTtcclxuICBwYWRkaW5nLXRvcDogMXB4O1xyXG59XHJcblxyXG5kaXZ7XHJcbiAgd2lkdGg6IDMwJTtcclxuICBtYXJnaW46IDIwcHggMzUlO1xyXG59XHJcblxyXG4jaGVhZGVye1xyXG4gIG1hcmdpbjogMjBweCAyMCU7XHJcbiAgZm9udC1zaXplOiB4LWxhcmdlO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIGNvbG9yOiBkYXJrcmVkO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -35,24 +35,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_main_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/main.service */ "./src/app/services/main.service.ts");
-/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/user.service */ "./src/app/services/user.service.ts");
 
 
 
 
 
 var ActivationPageComponent = /** @class */ (function () {
-    function ActivationPageComponent(activatedRoute, mainService, dataService) {
+    function ActivationPageComponent(activatedRoute, userService, dataService) {
         this.activatedRoute = activatedRoute;
-        this.mainService = mainService;
+        this.userService = userService;
         this.dataService = dataService;
         this.activated = false;
     }
     ActivationPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (params) {
-            _this.mainService.activation(params.jwt)
+            _this.userService.activation(params.jwt)
                 .subscribe(function (res) {
                 console.log(res);
                 if (res.message.indexOf('SUCCESS') > -1) {
@@ -70,8 +70,8 @@ var ActivationPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./activation-page.component.css */ "./src/app/modules/activation/activation-page/activation-page.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _services_main_service__WEBPACK_IMPORTED_MODULE_3__["MainService"],
-            _services_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"]])
+            _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _services_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]])
     ], ActivationPageComponent);
     return ActivationPageComponent;
 }());

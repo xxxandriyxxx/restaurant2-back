@@ -14,6 +14,9 @@ public class DishService {
     @Autowired
     DishDAO dishDAO;
 
+    @Autowired
+    private StatisticsService statisticsService;
+
 
     //     You should use only the unique names of dishes for the same restaurant.
     public ResponseMessage save(Dish dish) {
@@ -21,6 +24,7 @@ public class DishService {
             return new ResponseMessage("ERROR: You already have a dish with a such name in this restaurant");
         } else {
             dishDAO.save(dish);
+            statisticsService.creteDishStatistics(dish);
             return new ResponseMessage("The dish has been added");
         }
     }

@@ -15,7 +15,7 @@ import java.util.List;
 @Entity(name = "orders")
 @Getter
 @Setter
-@ToString()
+@ToString
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 

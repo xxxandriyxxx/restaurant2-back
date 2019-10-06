@@ -116,10 +116,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _models_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../models/User */ "./src/app/models/User.ts");
 /* harmony import */ var _models_BasicData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../models/BasicData */ "./src/app/models/BasicData.ts");
-/* harmony import */ var _services_main_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/main.service */ "./src/app/services/main.service.ts");
-/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/data.service */ "./src/app/services/data.service.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../services/user.service */ "./src/app/services/user.service.ts");
 
 
 
@@ -129,8 +129,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AccountComponent = /** @class */ (function () {
-    function AccountComponent(mainService, dataService, router, appComponent) {
-        this.mainService = mainService;
+    function AccountComponent(userService, dataService, router, appComponent) {
+        this.userService = userService;
         this.dataService = dataService;
         this.router = router;
         this.appComponent = appComponent;
@@ -144,7 +144,7 @@ var AccountComponent = /** @class */ (function () {
     };
     AccountComponent.prototype.loadData = function () {
         var _this = this;
-        this.mainService.getUserById(localStorage.getItem('_userId'))
+        this.userService.getUserById(localStorage.getItem('_userId'))
             .subscribe(function (obj) {
             _this.user = obj;
             _this.basicData.username = _this.user.username;
@@ -157,7 +157,7 @@ var AccountComponent = /** @class */ (function () {
     AccountComponent.prototype.updateAccount = function () {
         var _this = this;
         var id = localStorage.getItem('_userId');
-        this.mainService.updateAccount(id, this.basicData)
+        this.userService.updateAccount(id, this.basicData)
             .subscribe(function (value) {
             _this.appComponent.showModal(value.message);
             if (_this.basicData.email !== _this.formerEmail) {
@@ -177,10 +177,10 @@ var AccountComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./account.component.html */ "./src/app/modules/account/account/account.component.html"),
             styles: [__webpack_require__(/*! ./account.component.css */ "./src/app/modules/account/account/account.component.css"), __webpack_require__(/*! ../../signup/signup-page/signup-page.component.css */ "./src/app/modules/signup/signup-page/signup-page.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_main_service__WEBPACK_IMPORTED_MODULE_4__["MainService"],
-            _services_data_service__WEBPACK_IMPORTED_MODULE_5__["DataService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
-            _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"],
+            _services_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]])
     ], AccountComponent);
     return AccountComponent;
 }());

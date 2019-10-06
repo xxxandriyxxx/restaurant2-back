@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 import owu.restaurant2back.dao.OrderDAO;
 import owu.restaurant2back.dao.RestaurantDAO;
 import owu.restaurant2back.dao.UserDAO;
-import owu.restaurant2back.models.Order;
-import owu.restaurant2back.models.ResponseMessage;
-import owu.restaurant2back.models.Restaurant;
+import owu.restaurant2back.models.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +21,8 @@ public class OrderService {
 
     @Autowired
     RestaurantDAO restaurantDAO;
+
+
 
     public ResponseMessage placeOrder(Order order, int userId, int restaurantId) {
         order.setUser(userDAO.findById(userId));
@@ -50,6 +51,49 @@ public class OrderService {
         }
         return orders;
     }
+
+//    public void changeStatistics(Order order) {
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(order.getDate());
+//        int month = cal.get(Calendar.MONTH);
+//
+//        int restaurantId = order.getRestaurant().getId();
+//        RestaurantStatistics restaurantStatistics = restaurantStatisticsDAO.findByRestaurantId(restaurantId);
+//
+//        for (Dish dish : order.getDishes()) {
+//
+//            for (MenuSectionStatistics menuSectionStatistics : restaurantStatistics.getMenuSectionStatistics()) {
+//
+//                if (menuSectionStatistics.getMenuSection().equals(dish.getMenuSection())) {
+//                    menuSectionStatistics.getAmountByMonths()[month] += 1;
+//                    menuSectionStatistics.getCostByMonths()[month] +=
+//                            dish.getPrice() * order.getAmount()[order.getDishes().indexOf(dish)];
+//
+//                    for (DishStatistics dishStatistic : menuSectionStatistics.getDishStatistics()) {
+//                        dishStatistic.getAmountByMonths()[month] += 1;
+//                        dishStatistic.getCostByMonths()[month] +=
+//                                dish.getPrice() * order.getAmount()[order.getDishes().indexOf(dish)];
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//
+//    }
+//
+//
+//    public void createStatistics(Order order) {
+//        RestaurantStatistics restaurantStatistics = new RestaurantStatistics();
+//        MenuSectionStatistics menuSectionStatistics = new MenuSectionStatistics();
+//        DishStatistics dishStatistics = new DishStatistics();
+//        restaurantStatistics.setRestaurant(order.getRestaurant());
+//        for (Dish dish : order.getDishes()) {
+//            dishStatistics
+//
+//        }
+//    }
+
 
     public List<Order> findByRestaurantId(int id) {
         return orderDAO.findByRestaurantId(id);
