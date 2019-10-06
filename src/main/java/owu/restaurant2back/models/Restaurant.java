@@ -13,7 +13,7 @@ import java.util.List;
 @Entity(name = "restaurants")
 @Getter
 @Setter
-@ToString(exclude = {"menuSections", "dishes", "orders"})
+@ToString(exclude = {"menuSections", "dishes", "orders", "restaurantStatistics"})
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 

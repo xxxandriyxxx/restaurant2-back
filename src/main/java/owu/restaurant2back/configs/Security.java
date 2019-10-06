@@ -42,7 +42,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/", "/sign-in", "/save/client", "/save/owner", "/activation", "/activation/{jwt}",
-                        "/restaurants/get", "/restaurant/menu-sections/get/**").permitAll()
+                        "/restaurants/get", "/restaurant/menu-sections/get/**", "/statistics/get/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/login/try").permitAll()
 
                 .antMatchers("/*.ico").permitAll()
